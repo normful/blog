@@ -1,16 +1,102 @@
-# The URL the site will be built for
-base_url = "/"
+base_url = "https://normful.vercel.app/"
+theme = "papaya"
+taxonomies = [
+    { name = "categories" },
+    { name = "tags" },
+]
 
-# Whether to automatically compile all Sass files in the sass directory
-compile_sass = true
-
-# Whether to build a search index to be used later on by a JavaScript library
+# TODO(norman): Look into enabling this for both English and Japanese
 build_search_index = false
 
 [markdown]
-# Whether to do syntax highlighting
-# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
-highlight_code = false
+highlight_theme = "monokai"
+
+[slugify]
+paths = "safe"
+taxonomies = "safe"
+anchors = "safe"
+
+[languages]
+
+[languages.en]
+title = "Norman's Blog"
+description = "Notes and thoughts on software, Japan, and etc."
+generate_feed = true
+feed_filename = "atom.xml"
+
+[languages.en.translations]
+projects = "Projects"
+blog = "Blog"
+about = "About"
+recent_projects = "Recent Projects"
+more_projects = "More Projects"
+recent_blog_posts = "Recent Posts"
+more_blog_posts = "More posts"
+tag = "Tag"
+tags = "Tags"
+to_all_tags = "All tags"
+category = "Category"
+categories = "Categories"
+to_all_categories = "All categories"
+view_by = "View by"
+other = "Other"
+minute = "min"
+prev_page = "Newer posts"
+next_page = "Older posts"
+date_format = "%B %e, %Y"
+
+[languages.ja]
+title = "ノーマンのブログ"
+description = "ソフトのブログ"
+base_url = "https://normful.vercel.app/ja"
+taxonomies = [
+    { name = "tags", rss = true },
+    { name = "categories", rss = true },
+]
+
+[languages.ja.translations]
+projects = "プロジェクト"
+blog = "ブログ"
+about = "自己紹介"
+recent_projects = "最近のプロジェクト"
+more_projects = "その他のプロジェクト"
+recent_blog_posts = "最近のブログ記事"
+more_blog_posts = "その他のブログ記事"
+tag = "タグ"
+tags = "タグ"
+to_all_tags = "すべてのタグへ"
+category = "カテゴリー"
+categories = "カテゴリー"
+to_all_categories = "すべてのカテゴリへ"
+view_by = "表示順"
+other = "その他"
+minute = "分"
+prev_page = "前"
+next_page = "つぎ"
+date_format = "%B %e, %Y"
 
 [extra]
-# Put all your custom variables here
+menu_items = [
+    { name = "projects", url = "$LANG_BASE_URL/projects", show_recent = true, recent_items = 3, recent_trans_key = "recent_projects", more_trans_key = "more_projects" },
+    { name = "blog", url = "$LANG_BASE_URL/blog", show_recent = true, recent_items = 3, recent_trans_key = "recent_blog_posts", more_trans_key = "more_blog_posts" },
+    { name = "tags", url = "$LANG_BASE_URL/tags" },
+    { name = "about", url = "$LANG_BASE_URL/about", show_recent = false },
+]
+
+[extra.images]
+max_width = 2500
+
+[extra.ogp]
+locale = "en_US"
+first_name = "Norman"
+last_name = "Sue"
+gender = "male"
+username = "normful"
+
+[extra.social]
+github = "normful"
+linkedin = "normansue"
+twitter = "normful"
+
+[extra.cdn]
+font_awesome = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
