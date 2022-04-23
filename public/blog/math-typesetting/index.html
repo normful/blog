@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer-when-downgrade">
 
-    <title>About Norman Sue</title>
+    <title>KaTeX Usage - Norman&#x27;s Blog</title>
     <meta name="description" content="Notes and thoughts on software, Japan, and etc.">
 
     <link rel="stylesheet" href="/main.css">
@@ -19,22 +19,41 @@
     
 
     
-    <meta property="og:title" content="About Norman Sue">
-    <meta property="og:type" content="profile">
+    
     <meta property="og:locale" content="en_US">
-    <meta property="og:url" content="/about/">
-    <meta property="og:image" content="/about/me.jpg">
-    <meta property="profile:first_name" content="Norman">
-    <meta property="profile:last_name" content="Sue">
-    <meta property="profile:gender" content="male">
-    <meta property="profile:username" content="normful">
+    
+    <meta property="og:title" content="KaTeX Usage">
+    
+    <meta property="og:type" content="article">
+    <meta property="article:author" content="/about/">
+    <meta property="article:published_time" content="2021-05-03T09:19:42+00:00">
+    
+    
+    <meta property="article:tag" content="math">
+    
+    
+    
+    <meta property="article:modified_time" content="2021-05-03T09:19:42+00:00">
+    
+    
+    <meta property="og:url" content="/blog/math-typesetting/">
+    
+    
 
 
     
   
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+	integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
+	integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+	integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+	onload="renderMathInElement(document.body);"></script>
+
 
   
-    <title>About</title>
+    <title>KaTeX Usage</title>
   
 
   <meta name="author" content="Norman Sue">
@@ -42,7 +61,7 @@
   
 
   
-    <link rel="canonical" href="/about/">
+    <link rel="canonical" href="/blog/math-typesetting/">
   
 
   
@@ -56,7 +75,7 @@
   
 
   
-    <meta property="twitter:title" content="About">
+    <meta property="twitter:title" content="KaTeX Usage">
   
 
   
@@ -79,9 +98,13 @@
     
       
       
-        "headline":"About"
+        "headline":"KaTeX Usage"
       
       
+        "dateModified":"2021-05-03T09:19:42+00:00",
+      
+      
+        "datePublished":"2021-05-03T09:19:42+00:00",
       
       "mainEntityOfPage":{
         "@type":"WebPage",
@@ -109,13 +132,13 @@
                 <li><a  href="&#x2F;projects">Projects</a></li>
             
                 
-                <li><a  href="&#x2F;blog">Blog</a></li>
+                <li><a class="active" href="&#x2F;blog">Blog</a></li>
             
                 
                 <li><a  href="&#x2F;tags">Tags</a></li>
             
                 
-                <li><a class="active" href="&#x2F;about">About</a></li>
+                <li><a  href="&#x2F;about">About</a></li>
             
             
             </ul>
@@ -123,41 +146,54 @@
     </header>
     
     
+
 <article class="post">
-        <header>
-            <h1>About</h1>
-        </header>
-        <div class="content">
-            
-
-
-
-
-
-
-
-
-    
-
-
-
     
     
-    
-
     
         
-    
-
-<figure >
-    <img src="&#x2F;processed_images&#x2F;ad01a65d995fa57a00.jpg" class="bordered" alt="It&#x27;s me!"/>
-    <figcaption>It's me!</figcaption>
-</figure>
-<p> </p>
-<p>Hello, World!</p>
-
+        <header>
+            <h1>KaTeX Usage</h1>
+        </header>
+        
+    <div class="article-info">
+        
+        
+        <div class="article-date">May  3, 2021 ◦ 1 min ◦ </div>
+        
+        <div class="article-taxonomies">
+            
+            
+                <ul class="article-tags">
+                    
+                    <li><a href="/tags/math/">#math</a></li>
+                    
+                </ul>
+            
         </div>
+    </div>
+
+    
+    
+    <div class="content">
+        <pre data-lang="bash" class="language-bash "><code class="language-bash" data-lang="bash">{% if page.extra.katex or section.extra.katex or config.extra.katex %}
+  {% include &#x27;katex.html&#x27; %}
+{% endif %}
+</code></pre>
+<p>See <a href="https://katex.org/docs/supported.html">Supported TeX Functions</a></p>
+<h3 id="Examples">Examples<a class="zola-anchor" href="#Examples" aria-label="Anchor link for: Examples">🔗</a></h3>
+<p>
+Inline math: \(\varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887…\) 
+</p>
+<p>Block math:
+$$
+\varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } 
+$$</p>
+
+    </div>
+    
 </article>
+
 
     <footer>
         <p>

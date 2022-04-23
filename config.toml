@@ -80,6 +80,8 @@ menu_items = [
     { name = "tags", url = "$LANG_BASE_URL/tags" },
     { name = "about", url = "$LANG_BASE_URL/about", show_recent = false },
 ]
+author = "Norman Sue"
+site_url = "https://www.normful.com"
 
 [extra.images]
 max_width = 2500
