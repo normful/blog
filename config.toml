@@ -1,8 +1,8 @@
 base_url = "/"
 theme = "papaya"
 taxonomies = [
-    { name = "categories" },
-    { name = "tags" },
+    { name = "tags", rss = true },
+    { name = "categories", rss = true },
 ]
 
 # TODO(norman): Look into enabling this for both English and Japanese
@@ -46,7 +46,7 @@ date_format = "%B %e, %Y"
 [languages.ja]
 title = "ノーマンのブログ"
 description = "ソフトのブログ"
-base_url = "https://normful.vercel.app/ja"
+base_url = "/ja"
 taxonomies = [
     { name = "tags", rss = true },
     { name = "categories", rss = true },
