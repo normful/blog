@@ -131,7 +131,7 @@ A Nix channel:
 
 ## Operation `--install` (`-i`)
 
-- `nix-env -iA <attribute paths that select attributes from the not-level Nix expression>`
+- `nix-env -iA <attribute paths selecting attributes from the top-level Nix expression>`
     - Unambiguous, faster, preferred
 - `nix-env -i <derivation names of active Nix expression>`
     - Possibly ambiguous
