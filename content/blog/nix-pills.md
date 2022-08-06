@@ -107,7 +107,11 @@ A Nix channel:
 
 <https://nixos.org/manual/nix/stable/command-ref/nix-channel.html>
 
-# `NIX_PATH`
+# Common Environment Variables
+
+## `NIX_PATH`
+
+<https://nixos.org/manual/nix/stable/command-ref/env-common.html#env-NIX_PATH>
 
 # `~/.nix-defexpr`
 
@@ -144,27 +148,248 @@ A Nix channel:
 
 # Nix language
 
-## `nix-build` command
+In the Nix language:
+- There are no statements.
+- There are only expressions.
+- Values are immutable.
+- It's all about creating derivations, which are really just sets of attributes to be passed to build scripts.
+- Expressions will be parsed as paths, assuming there's not `/ `
 
-Builds a Nix expression.
+## Simple Values
+
+### Strings
+
+Things coerceable to a string:
+- string
+- path
+- derivation
+
+You cannot mix strings and integers; you must first do the conversion.
+
+`${expr}` is called antiquotation
+
+Multiline strings:
+
+```nix
+nix-repl> "first
+          second
+          third"
+"first\n\second\n\third"
+```
+
+Indented strings:
+
+```
+nix-repl> ''
+          a
+          b
+          ''
+"a\nb\n"
+```
+
+Indented strings using `''` are common for shell scripts:
+
+```nix
+stdenv.mkDerivation {
+  ...
+  postInstall =
+    ''
+      mkdir $out/bin $out/etc
+      cp foo $out/bin
+      echo "Hello World" > $out/etc/foo.conf
+      ${if enableBar then "cp bar $out/bin" else ""}
+    '';
+  ...
+}
+```
+
+Escaping `${...}` in `''` is done with `''`:
+
+```
+nix-repl> ''test ''${foo} test''
+"test ${foo} test"
+```
+
+URIs can be written without surrounding `"`.
+
+### Paths
+
+A path must have at least one `/`.
+
+A path can be specified between angle brackets, e.g. `<nixpkgs>`.
+
+```
+nix-repl> :t <nixpkgs>
+a path
+```
+
+A path to the current directory:
+
+```
+nix-repl> :t ./.
+a path
+```
+
+A path containing antiquotation:
+
+```
+nix-repl> foo = "x"
+
+nix-repl> :t ./${foo}nix
+a path
+```
+
+<https://nixos.org/manual/nix/stable/expressions/language-values.html#simple-values>
+
+## Lists
+
+Example:
+
+```nix
+[ 123 ./foo.nix "abc" (f { x = y; }) ]
+```
+
+A list element that is the result of a function call, must be enclosed in round parentheses.
+
+Lists are immutable, like everything else in Nix.
+
+Adding or removing elements from a list is possible, but will return a new list.
+
+Lists are lazy in values and strict in length.
+
+## Sets (a.k.a. attribute sets)
+
+Sets are the core of the language.
+
+```
+nix-repl> :t {unquoted="b";        "quoted" = "d"; }
+a set
+```
+
+A set is a list of name/value pairs (called attributes) enclosed in curly braces.
+
+Each value is an expression terminated by a semicolon.
+
+Attribute names are strings, and they may be unquoted.
+
+Attribute ordering is irrelevant.
+
+Attribute names may occur only once.
+
+Attributes can be selected from a set using the `.` operator.
+
+The `or` keyword provides a default value in an attribute selection.
+
+```nix
+{ foo = 123; }.${bar} or 456
+```
+
+This will evaluate to 123 if bar evaluates to "foo" when coerced to a string and 456 otherwise (again assuming bar is antiquotable).
+
+<https://nixos.org/manual/nix/stable/expressions/language-values.html#sets>
+
+Inside a set, you cannot normally refer to elements of the same set:
+
+```
+nix-repl> { a = 3; b = a+4; }
+error: undefined variable `a' at (string):1:10
+```
+
+### Recursive Sets (a.k.a. Recursive Attribute Sets) -- `rec`
+
+```
+nix-repl> rec { a = 3; b = a+4; }
+{ a = 3; b = 7; }
+```
+
+In a recursive set, attributes are added to the lexical scope of that same set.
+
+Can cause an infinite recursion error if used improperly.
+
+### Argument Sets
+
+Argument sets are used in functions.
+
+## Let-expressions
+
+The `let` construct adds the initial expressions to the lexical scope of the expression after `in`:
+
+```nix
+let
+  x = "foo";
+  y = "bar";
+in x + y
+```
+
+evaluates to "foobar".
+
+## Inheriting attributes -- `inherit`
+
+```nix
+let x = 123; in
+{ inherit x;
+  y = 456;
+}
+```
+
+is equivalent to
+
+```
+let x = 123; in
+{ "x" = x;
+  "y" = 456;
+}
+```
+
+and both evaluate to { x = 123; y = 456; }.
+
+-- 
+
+The fragment
+
+``
+...
+inherit x y z;
+inherit (src-set) a b c;
+...
+
+```
+
+is equivalent to
+
+```
+...
+x = x; y = y; z = z;
+a = src-set.a; b = src-set.b; c = src-set.c;
+...
+```
+
+when used while defining local variables in a let-expression or while defining a set.
+
+<https://nixos.org/manual/nix/stable/expressions/language-constructs.html#inheriting-attributes>
+
+## Functions
+
+
+
+
+## Conditionals
+
+```nix
+if e1 then e2 else e3
+```
+
+where `e1` is an expression that should evaluate to a Boolean value (`true` or `false`).
+
+# `nix-build` command
+
+Builds a Nix store derivation from a Nix expression.
 
 <https://nixos.org/manual/nix/stable/command-ref/nix-build.html>
 
 Runs:
 1. `nix-instantiate` to translate a high-level Nix expression to a low-level store derivation
 2. `nix-store --realise` to build the store derivation
-
-## `nix-repl`
-
-```nix
-nix-repl> :t { abc = "e"; }
-a set
-```
-
-```nix
-nix-repl> :t {arg1, arg2, ...}: {foo = "bar";}
-a function
-```
 
 # Common Command Options
 
