@@ -10,28 +10,12 @@
         <loc>/blog/</loc>
     </url>
     <url>
-        <loc>/blog/another-post/</loc>
-        <lastmod>2021-10-02</lastmod>
-    </url>
-    <url>
-        <loc>/blog/blog-with-image/</loc>
-        <lastmod>2021-10-01</lastmod>
-    </url>
-    <url>
-        <loc>/blog/math-typesetting/</loc>
-        <lastmod>2021-05-03T09:19:42+00:00</lastmod>
-    </url>
-    <url>
         <loc>/blog/nix-pills/</loc>
         <lastmod>2022-08-05</lastmod>
     </url>
     <url>
         <loc>/blog/nixos-in-vmware-fusion/</loc>
         <lastmod>2022-08-05</lastmod>
-    </url>
-    <url>
-        <loc>/blog/no-summary/</loc>
-        <lastmod>2021-10-04</lastmod>
     </url>
     <url>
         <loc>/blog/page/1/</loc>
@@ -52,13 +36,6 @@
         <loc>/ja/blog/</loc>
     </url>
     <url>
-        <loc>/ja/blog/blog-with-image/</loc>
-        <lastmod>2021-10-01</lastmod>
-    </url>
-    <url>
-        <loc>/ja/blog/page/1/</loc>
-    </url>
-    <url>
         <loc>/ja/projects/</loc>
     </url>
     <url>
@@ -76,15 +53,9 @@
         <loc>/tags/</loc>
     </url>
     <url>
-        <loc>/tags/math/</loc>
-    </url>
-    <url>
         <loc>/tags/nix/</loc>
     </url>
     <url>
         <loc>/tags/nixos/</loc>
-    </url>
-    <url>
-        <loc>/tags/other/</loc>
     </url>
 </urlset>
