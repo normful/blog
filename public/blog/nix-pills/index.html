@@ -374,7 +374,6 @@ a path
 nix-repl&gt; :t .&#x2F;${foo}nix
 a path
 </code></pre>
-<p><a href="https://nixos.org/manual/nix/stable/expressions/language-values.html#simple-values">https://nixos.org/manual/nix/stable/expressions/language-values.html#simple-values</a></p>
 <h2 id="Lists">Lists<a class="zola-anchor" href="#Lists" aria-label="Anchor link for: Lists">🔗</a></h2>
 <p>Example:</p>
 <pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">[ 123 .&#x2F;foo.nix &quot;abc&quot; (f { x = y; }) ]
@@ -398,7 +397,6 @@ a set
 <pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">{ foo = 123; }.${bar} or 456
 </code></pre>
 <p>This will evaluate to 123 if bar evaluates to &quot;foo&quot; when coerced to a string and 456 otherwise (again assuming bar is antiquotable).</p>
-<p><a href="https://nixos.org/manual/nix/stable/expressions/language-values.html#sets">https://nixos.org/manual/nix/stable/expressions/language-values.html#sets</a></p>
 <p>Inside a set, you cannot normally refer to elements of the same set:</p>
 <pre><code>nix-repl&gt; { a = 3; b = a+4; }
 error: undefined variable `a&#x27; at (string):1:10
@@ -457,46 +455,18 @@ nix-repl&gt; with longName; a + b
 <p>and both evaluate to <code>{ x = 123; y = 456; }</code>.</p>
 <p>-- </p>
 <p>The following fragment:</p>
-<p>``
-inherit x y z;
-inherit (src-set) a b c;</p>
-<pre><code>
-is equivalent to the fragment:
-
+<pre><code>inherit x y z;
+inherit (src-set) a b c;
 </code></pre>
-<p>x = x; y = y; z = z;
-a = src-set.a; b = src-set.b; c = src-set.c;</p>
-<pre><code>
-when used while defining local variables in a let-expression or while defining a set.
-
-&lt;https:&#x2F;&#x2F;nixos.org&#x2F;manual&#x2F;nix&#x2F;stable&#x2F;expressions&#x2F;language-constructs.html#inheriting-attributes&gt;
-
-## Functions
-
-
-
-&lt;!-- TODO(norman): Continue from here https:&#x2F;&#x2F;nixos.org&#x2F;manual&#x2F;nix&#x2F;stable&#x2F;expressions&#x2F;language-constructs.html#functions --&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Conditionals
-
-```nix
-if e1 then e2 else e3
+<p>is equivalent to the fragment:</p>
+<pre><code>x = x; y = y; z = z;
+a = src-set.a; b = src-set.b; c = src-set.c;
+</code></pre>
+<p>when used while defining local variables in a let-expression or while defining a set.</p>
+<h2 id="Functions">Functions<a class="zola-anchor" href="#Functions" aria-label="Anchor link for: Functions">🔗</a></h2>
+<!-- TODO(norman): Continue from here https://nixos.org/manual/nix/stable/expressions/language-constructs.html#functions -->
+<h2 id="Conditionals">Conditionals<a class="zola-anchor" href="#Conditionals" aria-label="Anchor link for: Conditionals">🔗</a></h2>
+<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">if e1 then e2 else e3
 </code></pre>
 <p>where <code>e1</code> is an expression that should evaluate to a Boolean value (<code>true</code> or <code>false</code>).</p>
 <h2 id="with_expressions"><code>with</code> expressions<a class="zola-anchor" href="#with_expressions" aria-label="Anchor link for: with_expressions">🔗</a></h2>
