@@ -1,12 +1,16 @@
 # Personal blog
 
 - Built with [Zola](https://www.getzola.org) v0.15.3
+- Deployed on Vercel at normful.com
 
-## Deploy
+# How-To: Deploy
 
-Deployed on Vercel.
+1. `make`
+2. `git push`
 
-### Problem: Vercel's `zola` version
+# Vercel workarounds used in this repo
+
+## Problem: Vercel's `zola` version
 
 I didn't use Vercel's Zola preset because it is hardcoded to use Zola 0.13.0. If this is upgraded later, I should change to using the preset again.
 
@@ -16,7 +20,7 @@ Attempting to download, untar, and run a Zola release binary also failed, again 
 
 Instead, I just run `zola build` locally and check in the generated `public` directory.
 
-### Problem: Vercel's default lack of support for Git LFS
+## Problem: Vercel's default lack of support for Git LFS
 
 Workaround: https://github.com/vercel/community/discussions/49#discussioncomment-1395097
 
