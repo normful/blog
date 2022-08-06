@@ -39,4 +39,6 @@ On the VM:
 On the host:
 1. Fill in `NIXADDR` in the `Makefile` using the IP address.
 1. `make vm/boostrap0` and wait it to finish and reboot.
+1. `docker run -it --rm alpine mkpasswd -m sha-512` and copy the password hash to `nixos-config/users/norman/nixos.nix` in `users.users.norman.hashedPassword`.
+1. Copy `~/.ssh/id_ed25519.pub` to `nixos-config/users/norman/nixos.nix` in `users.users.norman.openssh.authorizedKeys.keys`.
 1. `make vm/boostrap` and wait it to finish and reboot.
