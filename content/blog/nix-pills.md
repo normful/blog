@@ -246,8 +246,6 @@ nix-repl> :t ./${foo}nix
 a path
 ```
 
-<https://nixos.org/manual/nix/stable/expressions/language-values.html#simple-values>
-
 ## Lists
 
 Example:
@@ -292,8 +290,6 @@ The `or` keyword provides a default value in an attribute selection.
 ```
 
 This will evaluate to 123 if bar evaluates to "foo" when coerced to a string and 456 otherwise (again assuming bar is antiquotable).
-
-<https://nixos.org/manual/nix/stable/expressions/language-values.html#sets>
 
 Inside a set, you cannot normally refer to elements of the same set:
 
@@ -398,10 +394,9 @@ and both evaluate to `{ x = 123; y = 456; }`.
 
 The following fragment:
 
-``
+```
 inherit x y z;
 inherit (src-set) a b c;
-
 ```
 
 is equivalent to the fragment:
@@ -412,8 +407,6 @@ a = src-set.a; b = src-set.b; c = src-set.c;
 ```
 
 when used while defining local variables in a let-expression or while defining a set.
-
-<https://nixos.org/manual/nix/stable/expressions/language-constructs.html#inheriting-attributes>
 
 ## Functions
 
