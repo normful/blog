@@ -467,11 +467,24 @@ Runs:
 
 https://nixos.org/guides/nix-pills/functions-and-imports.html
 
+https://scrive.github.io/nix-workshop/
+
 https://github.com/tazjin/nix-1p
 
 https://github.com/justinwoo/nix-shorts/tree/master/posts
 
 https://nix.dev/tutorials/declarative-and-reproducible-developer-environments 
 
+
+
+
+
+Much later, and just skimming, to confirm you understand:
+
+
 https://medium.com/@MrJamesFisher/nix-by-example-a0063a1a4c55
+
+https://github.com/humancalico/nix-learning
+
+https://ianthehenry.com/posts/how-to-learn-nix/
 -->
