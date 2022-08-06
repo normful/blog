@@ -5,7 +5,7 @@
 
 # How-To: Deploy
 
-1. `make`
+1. `make` (or use local `makeblog` alias from any folder)
 2. `git push`
 
 # Caveats
