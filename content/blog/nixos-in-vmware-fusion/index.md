@@ -39,4 +39,4 @@ On the VM:
 On the host:
 1. Fill in `NIXADDR` in the `Makefile` using the IP address.
 1. `make vm/boostrap0` and wait it to finish and reboot.
-1. `make vm/boostrap1` and wait it to finish and reboot.
+1. `make vm/boostrap` and wait it to finish and reboot.
