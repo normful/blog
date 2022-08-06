@@ -197,16 +197,18 @@
 <h4 id="Querying_requisites">Querying requisites<a class="zola-anchor" href="#Querying_requisites" aria-label="Anchor link for: Querying_requisites">🔗</a></h4>
 <p>These are all equivalent and print the closure (the dependencies) of <code>man</code>:</p>
 <ul>
-<li>&quot;nix-store -qR <code>which man</code>&quot; </li>
-<li>&quot;nix-store --query --requisites <code>which man</code>&quot;</li>
-<li>&quot;nix-store --query --requisites ~/.nix-profile/bin/man&quot;</li>
+<li><code>nix-store -qR \</code>which man``</li>
+<li><code>nix-store --query --requisites \</code>which man``</li>
+<li><code>nix-store --query --requisites ~/.nix-profile/bin/man</code></li>
 </ul>
 <p>Same thing in form:</p>
 <ul>
-<li>&quot;nix-store --query --tree <code>which man</code>&quot;</li>
+<li><code>nix-store --query --tree \</code>which man``</li>
 </ul>
 <h2 id="Nix_database">Nix database<a class="zola-anchor" href="#Nix_database" aria-label="Anchor link for: Nix_database">🔗</a></h2>
-<p>SQLite database at <code>/nix/var/nix/db</code> that tracks dependencies between derivations.</p>
+<ul>
+<li>Is a SQLite database at <code>/nix/var/nix/db</code> that tracks dependencies between derivations.</li>
+</ul>
 <h2 id="Derivations">Derivations<a class="zola-anchor" href="#Derivations" aria-label="Anchor link for: Derivations">🔗</a></h2>
 <ul>
 <li>Stored as <code>/nix/store/hash-name</code></li>
