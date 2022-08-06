@@ -19,15 +19,14 @@ In VMware Fusion:
 1. Select **Linux** -> **Other Linux 5.x kernel 64-bit Arm**
 1. Click **Customize Settings**
 1. Type a better name into the **Save As** field.
-1. **Display**: 
+1. **Display**:
+    {{ img(path="./display-settings.png", alt="") }}
 1. **Network Adapter** -> **Connect Network Adapter** -> **Share with my Mac** (default)
 1. **Hard Disk**:
+    {{ img(path="./hard-disk-settings-nvme.png", alt="") }}
 1. **Sound Card** -> **Remove Sound Card**
 1. **Camera** -> **Remove Camera**
 1. Start VM
-
-{{ img(path="./display-settings.png", alt="") }}
-{{ img(path="./hard-disk-settings-nvme.png", alt="") }}
 
 On the VM:
 1. Press enter to start the installer (default selection). This will run https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/system/boot/stage-1-init.sh
