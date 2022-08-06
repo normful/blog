@@ -36,16 +36,16 @@ Some notes from reading https://nixos.org/guides/nix-pills/
 #### Querying requisites
 
 These are all equivalent and print the closure (the dependencies) of `man`:
-- "nix-store -qR `which man`" 
-- "nix-store --query --requisites `which man`"
-- "nix-store --query --requisites ~/.nix-profile/bin/man"
+- `nix-store -qR \`which man\``
+- `nix-store --query --requisites \`which man\``
+- `nix-store --query --requisites ~/.nix-profile/bin/man`
 
 Same thing in form:
-- "nix-store --query --tree `which man`"
+- `nix-store --query --tree \`which man\``
 
 ## Nix database
 
-SQLite database at `/nix/var/nix/db` that tracks dependencies between derivations.
+- Is a SQLite database at `/nix/var/nix/db` that tracks dependencies between derivations.
 
 ## Derivations
 
