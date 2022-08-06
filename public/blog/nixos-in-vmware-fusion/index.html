@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset="utf-8">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    <title>Setting up NixOS in VMware Fusion Public Tech Preview 22H2 - Norman&#x27;s Blog</title>
+    <meta name="description" content="Notes and thoughts on software, Japan, and etc.">
+
+    <link rel="stylesheet" href="/main.css">
+
+    <link rel="preload" href=https:&#x2F;&#x2F;cdnjs.cloudflare.com&#x2F;ajax&#x2F;libs&#x2F;font-awesome&#x2F;6.1.1&#x2F;css&#x2F;brands.min.css as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href=https:&#x2F;&#x2F;cdnjs.cloudflare.com&#x2F;ajax&#x2F;libs&#x2F;font-awesome&#x2F;6.1.1&#x2F;css&#x2F;brands.min.css></noscript>
+
+    
+    <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+
+    
+    
+    <meta property="og:locale" content="en_US">
+    
+    <meta property="og:title" content="Setting up NixOS in VMware Fusion Public Tech Preview 22H2">
+    
+    <meta property="og:type" content="article">
+    <meta property="article:author" content="/about/">
+    <meta property="article:published_time" content="2022-08-05">
+    
+    
+    <meta property="article:tag" content="nixos">
+    
+    
+    
+    
+    <meta property="og:url" content="/blog/nixos-in-vmware-fusion/">
+    
+    
+
+
+    
+  
+
+  
+    <title>Setting up NixOS in VMware Fusion Public Tech Preview 22H2</title>
+  
+
+  <meta name="author" content="Norman Sue">
+
+  
+
+  
+    <link rel="canonical" href="/blog/nixos-in-vmware-fusion/">
+  
+
+  
+
+  
+    <link rel="prev" href="/blog/no-summary/">
+  
+
+  
+
+  
+    <meta name="twitter:card" content="summary">
+  
+
+  
+    <meta property="twitter:title" content="Setting up NixOS in VMware Fusion Public Tech Preview 22H2">
+  
+
+  
+
+  
+
+  
+
+  
+
+  <script type="application/ld+json">
+  {
+    "author": {
+      "@type":"Person",
+      "name":"Norman Sue",
+    },
+    "url":"https://www.normful.com",
+    "@context":"https://schema.org",
+    "@type":"WebPage",
+    
+      
+      
+        "headline":"Setting up NixOS in VMware Fusion Public Tech Preview 22H2"
+      
+      
+      
+        "datePublished":"2022-08-05T00:00:00+00:00",
+      
+      "mainEntityOfPage":{
+        "@type":"WebPage",
+        "@id":"https://www.normful.com"
+      },
+    
+  }
+</script>
+
+
+</head>
+<body>
+<div class="container">
+    
+    
+    <header>
+        <h1 class="site-header">
+            <a href="">Norman&#x27;s Blog</a>
+        </h1>
+        <nav>
+            <ul>
+            
+            
+                
+                <li><a  href="&#x2F;projects">Projects</a></li>
+            
+                
+                <li><a class="active" href="&#x2F;blog">Blog</a></li>
+            
+                
+                <li><a  href="&#x2F;tags">Tags</a></li>
+            
+                
+                <li><a  href="&#x2F;about">About</a></li>
+            
+            
+            </ul>
+        </nav>
+    </header>
+    
+    
+
+<article class="post">
+    
+    
+    
+        
+        <header>
+            <h1>Setting up NixOS in VMware Fusion Public Tech Preview 22H2</h1>
+        </header>
+        
+    <div class="article-info">
+        
+        
+        <div class="article-date">August  5, 2022 ◦ 2 min ◦ </div>
+        
+        <div class="article-taxonomies">
+            
+            
+                <ul class="article-tags">
+                    
+                    <li><a href="/tags/nixos/">#nixos</a></li>
+                    
+                </ul>
+            
+        </div>
+    </div>
+
+    
+    
+    <div class="content">
+        <p>On the macOS host:</p>
+<ol>
+<li>Install and start <a href="https://docs.docker.com/desktop/install/mac-install">Docker Desktop for Mac</a></li>
+<li><code>git clone https://github.com/normful/nixos-config.git</code></li>
+<li><code>cd nixos-config &amp;&amp; make iso/nixos.iso</code></li>
+<li>Install <a href="https://customerconnect.vmware.com/downloads/get-download?downloadGroup=FUS-PUBTP-22H2">VMware Fusion Public Tech Preview 22H2</a></li>
+</ol>
+<p>In VMware Fusion:</p>
+<ol>
+<li>Install from disc or image</li>
+<li>Choose <code>nixos.iso</code></li>
+<li>Select <strong>Linux</strong> -&gt; <strong>Other Linux 5.x kernel 64-bit Arm</strong></li>
+<li>Click <strong>Customize Settings</strong></li>
+<li>Type a better name into the <strong>Save As</strong> field.</li>
+<li><strong>Display</strong>: </li>
+<li><strong>Network Adapter</strong> -&gt; <strong>Connect Network Adapter</strong> -&gt; <strong>Share with my Mac</strong> (default)</li>
+<li><strong>Hard Disk</strong>:</li>
+<li><strong>Sound Card</strong> -&gt; <strong>Remove Sound Card</strong></li>
+<li><strong>Camera</strong> -&gt; <strong>Remove Camera</strong></li>
+<li>Start VM</li>
+</ol>
+<p>
+
+
+
+
+
+
+
+
+    
+    
+    
+
+
+
+    
+    
+    
+
+    
+        
+    
+
+<figure >
+    <img src="&#x2F;processed_images&#x2F;ce747c2d50445ec900.png" class="" />
+    
+</figure>
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+
+
+
+    
+    
+    
+
+    
+        
+    
+
+<figure >
+    <img src="&#x2F;processed_images&#x2F;3eb2d77f830bb93b00.png" class="" />
+    
+</figure>
+</p>
+<p>On the VM:</p>
+<ol>
+<li>Press enter to start the installer (default selection). This will run https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/system/boot/stage-1-init.sh</li>
+</ol>
+<ul>
+<li>For some strange reason, at one point, it was running into an error trying to mount <code>/mnt-root</code> even though <code>/mnt-root</code> was not even mounted in latter attempts that succeeded.</li>
+</ul>
+<ol start="3">
+<li><code>setfont ter-v32n</code> to use a larger font.</li>
+<li>Switch into into the <code>root</code> user: <code>sudo su</code></li>
+<li>Set the <code>root</code> user password to <code>root</code>: <code>passwd</code></li>
+<li>Write down IP address from <code>ip a</code> output.</li>
+</ol>
+<p>On the host:</p>
+<ol>
+<li>Fill in <code>NIXADDR</code> in the <code>Makefile</code> using the IP address.</li>
+<li><code>make vm/boostrap0</code> and wait it to finish and reboot</li>
+<li><code>make vm/boostrap1</code> and wait it to finish and reboot</li>
+</ol>
+
+    </div>
+    
+</article>
+
+
+    <footer>
+        <p>
+            
+<span class="icon-text">
+  
+
+  
+  <a href="https://twitter.com/normful" aria-label="Open normful Twitter" target="_blank">
+    <span class="icon is-large">
+      <i class="fab fa-twitter fa-lg" aria-hidden="true" title="Twitter"></i>
+    </span>
+  </a>
+  
+
+  
+  <a href="https://github.com/normful" aria-label="Open normful GitHub" target="_blank">
+    <span class="icon is-large">
+      <i class="fab fa-github fa-lg" aria-hidden="true" title="GitHub"></i>
+    </span>
+  </a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/normansue" aria-label="Open normansue LinkedIn" target="_blank">
+    <span class="icon is-large">
+      <i class="fab fa-linkedin fa-lg" aria-hidden="true" title="LinkedIn"></i>
+    </span>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a href="/atom.xml" aria-label="Open atom xml feed" target="_blank">
+    <span class="icon is-large">
+      <i class="fas fa-rss fa-lg" aria-hidden="true" title="atom xml feed"></i>
+    </span>
+  </a>
+  
+
+  
+</span>
+
+        </p>
+        <p>
+            
+            
+        </p>
+    </footer>
+</div>
+</body>
+</html>
