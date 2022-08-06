@@ -29,12 +29,18 @@ Succinct notes from reading https://nixos.org/guides/nix-pills/ and various Nix 
 #### Querying requisites
 
 To print the closure, i.e. the dependencies, of `man` (all equivalent commands):
-- `nix-store -qR \`which man\``
-- `nix-store --query --requisites \`which man\``
-- `nix-store --query --requisites ~/.nix-profile/bin/man`
+
+```sh
+nix-store -qR `which man`
+nix-store --query --requisites `which man`
+nix-store --query --requisites ~/.nix-profile/bin/man
+```
 
 To show the closure of `man` in tree form:
-- `nix-store --query --tree \`which man\``
+
+```sh
+nix-store --query --tree `which man`
+```
 
 # User Environments
 
