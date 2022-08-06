@@ -188,15 +188,13 @@
 <h3 id="Operation_--query_(-q)">Operation <code>--query</code> (<code>-q</code>)<a class="zola-anchor" href="#Operation_--query_(-q)" aria-label="Anchor link for: Operation_--query_(-q)">🔗</a></h3>
 <h4 id="Querying_requisites">Querying requisites<a class="zola-anchor" href="#Querying_requisites" aria-label="Anchor link for: Querying_requisites">🔗</a></h4>
 <p>To print the closure, i.e. the dependencies, of <code>man</code> (all equivalent commands):</p>
-<ul>
-<li><code>nix-store -qR \</code>which man``</li>
-<li><code>nix-store --query --requisites \</code>which man``</li>
-<li><code>nix-store --query --requisites ~/.nix-profile/bin/man</code></li>
-</ul>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">nix-store -qR `which man`
+nix-store --query --requisites `which man`
+nix-store --query --requisites ~&#x2F;.nix-profile&#x2F;bin&#x2F;man
+</code></pre>
 <p>To show the closure of <code>man</code> in tree form:</p>
-<ul>
-<li><code>nix-store --query --tree \</code>which man``</li>
-</ul>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">nix-store --query --tree `which man`
+</code></pre>
 <h1 id="User_Environments">User Environments<a class="zola-anchor" href="#User_Environments" aria-label="Anchor link for: User_Environments">🔗</a></h1>
 <ul>
 <li>A user environment is a <code>/nix/store/&lt;hash&gt;-user-environment</code> folder</li>
