@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset="utf-8">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    <title>Nix Pills Notes - Norman&#x27;s Blog</title>
+    <meta name="description" content="Notes and thoughts on software, Japan, and etc.">
+
+    <link rel="stylesheet" href="/main.css">
+
+    <link rel="preload" href=https:&#x2F;&#x2F;cdnjs.cloudflare.com&#x2F;ajax&#x2F;libs&#x2F;font-awesome&#x2F;6.1.1&#x2F;css&#x2F;brands.min.css as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href=https:&#x2F;&#x2F;cdnjs.cloudflare.com&#x2F;ajax&#x2F;libs&#x2F;font-awesome&#x2F;6.1.1&#x2F;css&#x2F;brands.min.css></noscript>
+
+    
+    <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+
+    
+    
+    <meta property="og:locale" content="en_US">
+    
+    <meta property="og:title" content="Nix Pills Notes">
+    
+    <meta property="og:type" content="article">
+    <meta property="article:author" content="/about/">
+    <meta property="article:published_time" content="2022-08-05">
+    
+    
+    <meta property="article:tag" content="nix">
+    
+    <meta property="article:tag" content="nixos">
+    
+    
+    
+    
+    <meta property="og:url" content="/blog/nix-pills/">
+    
+    
+
+
+    
+  
+
+  
+    <title>Nix Pills Notes</title>
+  
+
+  <meta name="author" content="Norman Sue">
+
+  
+
+  
+    <link rel="canonical" href="/blog/nix-pills/">
+  
+
+  
+
+  
+    <link rel="prev" href="/blog/nixos-in-vmware-fusion/">
+  
+
+  
+
+  
+    <meta name="twitter:card" content="summary">
+  
+
+  
+    <meta property="twitter:title" content="Nix Pills Notes">
+  
+
+  
+
+  
+
+  
+
+  
+
+  <script type="application/ld+json">
+  {
+    "author": {
+      "@type":"Person",
+      "name":"Norman Sue",
+    },
+    "url":"https://www.normful.com",
+    "@context":"https://schema.org",
+    "@type":"WebPage",
+    
+      
+      
+        "headline":"Nix Pills Notes"
+      
+      
+      
+        "datePublished":"2022-08-05T00:00:00+00:00",
+      
+      "mainEntityOfPage":{
+        "@type":"WebPage",
+        "@id":"https://www.normful.com"
+      },
+    
+  }
+</script>
+
+
+</head>
+<body>
+<div class="container">
+    
+    
+    <header>
+        <h1 class="site-header">
+            <a href="">Norman&#x27;s Blog</a>
+        </h1>
+        <nav>
+            <ul>
+            
+            
+                
+                <li><a  href="&#x2F;projects">Projects</a></li>
+            
+                
+                <li><a class="active" href="&#x2F;blog">Blog</a></li>
+            
+                
+                <li><a  href="&#x2F;tags">Tags</a></li>
+            
+                
+                <li><a  href="&#x2F;about">About</a></li>
+            
+            
+            </ul>
+        </nav>
+    </header>
+    
+    
+
+<article class="post">
+    
+    
+    
+        
+        <header>
+            <h1>Nix Pills Notes</h1>
+        </header>
+        
+    <div class="article-info">
+        
+        
+        <div class="article-date">August  5, 2022 ◦ 3 min ◦ </div>
+        
+        <div class="article-taxonomies">
+            
+            
+                <ul class="article-tags">
+                    
+                    <li><a href="/tags/nix/">#nix</a></li>
+                    
+                    <li><a href="/tags/nixos/">#nixos</a></li>
+                    
+                </ul>
+            
+        </div>
+    </div>
+
+    
+    
+    <div class="content">
+        <p>Some notes from reading https://nixos.org/guides/nix-pills/</p>
+<h1 id="Nix_Store">Nix Store<a class="zola-anchor" href="#Nix_Store" aria-label="Anchor link for: Nix_Store">🔗</a></h1>
+<ul>
+<li>Never change <code>/nix/store</code> manually.</li>
+</ul>
+<h2 id="User_Environments">User Environments<a class="zola-anchor" href="#User_Environments" aria-label="Anchor link for: User_Environments">🔗</a></h2>
+<ul>
+<li>A user environments is a <code>/nix/store/&lt;hash&gt;-user-environment</code> folder</li>
+</ul>
+<h3 id="Manifest_of_a_User_Environment">Manifest of a User Environment<a class="zola-anchor" href="#Manifest_of_a_User_Environment" aria-label="Anchor link for: Manifest_of_a_User_Environment">🔗</a></h3>
+<ul>
+<li><code>/nix/store/&lt;hash&gt;-user-environment/manifest.nix (symlink) -&gt; /nix/store/hash-env-manifest.nix (file)</code></li>
+<li>Current manifest: <code>~/.nix-profile/manifest.nix</code></li>
+</ul>
+<h2 id="nix-store"><code>nix-store</code><a class="zola-anchor" href="#nix-store" aria-label="Anchor link for: nix-store">🔗</a></h2>
+<ul>
+<li>Manipulates or queries the Nix store</li>
+</ul>
+<h3 id="Operation_--gc">Operation <code>--gc</code><a class="zola-anchor" href="#Operation_--gc" aria-label="Anchor link for: Operation_--gc">🔗</a></h3>
+<h3 id="Operation_--realise_(-r)">Operation <code>--realise</code> (<code>-r</code>)<a class="zola-anchor" href="#Operation_--realise_(-r)" aria-label="Anchor link for: Operation_--realise_(-r)">🔗</a></h3>
+<ul>
+<li>Ensures output paths of a derivation are valid</li>
+</ul>
+<h3 id="Operation_--query_(-q)">Operation <code>--query</code> (<code>-q</code>)<a class="zola-anchor" href="#Operation_--query_(-q)" aria-label="Anchor link for: Operation_--query_(-q)">🔗</a></h3>
+<h4 id="Querying_requisites">Querying requisites<a class="zola-anchor" href="#Querying_requisites" aria-label="Anchor link for: Querying_requisites">🔗</a></h4>
+<p>These are all equivalent and print the closure (the dependencies) of <code>man</code>:</p>
+<ul>
+<li>&quot;nix-store -qR <code>which man</code>&quot; </li>
+<li>&quot;nix-store --query --requisites <code>which man</code>&quot;</li>
+<li>&quot;nix-store --query --requisites ~/.nix-profile/bin/man&quot;</li>
+</ul>
+<p>Same thing in form:</p>
+<ul>
+<li>&quot;nix-store --query --tree <code>which man</code>&quot;</li>
+</ul>
+<h2 id="Nix_database">Nix database<a class="zola-anchor" href="#Nix_database" aria-label="Anchor link for: Nix_database">🔗</a></h2>
+<p>SQLite database at <code>/nix/var/nix/db</code> that tracks dependencies between derivations.</p>
+<h2 id="Derivations">Derivations<a class="zola-anchor" href="#Derivations" aria-label="Anchor link for: Derivations">🔗</a></h2>
+<ul>
+<li>Stored as <code>/nix/store/hash-name</code></li>
+<li>Identified by their hash</li>
+<li>Can have the same name but different hashes (thus derivation names by themselves are ambiguous)</li>
+</ul>
+<p>Upgrading a library like glibc means recompiling all applications, because the glibc path is hardcoded.
+There's no such global path for plugins, so each application must know the specific Nix store path to each plugin.</p>
+<h3 id="Attribute_paths">Attribute paths<a class="zola-anchor" href="#Attribute_paths" aria-label="Anchor link for: Attribute_paths">🔗</a></h3>
+<ul>
+<li>Attribute paths: unambiguous</li>
+<li>Derivation names: ambiguous</li>
+</ul>
+<h3 id="Closure_of_a_Derivation">Closure of a Derivation<a class="zola-anchor" href="#Closure_of_a_Derivation" aria-label="Anchor link for: Closure_of_a_Derivation">🔗</a></h3>
+<ul>
+<li>Is a list of all a derivation's dependencies, recursively</li>
+</ul>
+<h2 id="Profiles">Profiles<a class="zola-anchor" href="#Profiles" aria-label="Anchor link for: Profiles">🔗</a></h2>
+<ul>
+<li>A set of packages</li>
+<li>Versioned using generations</li>
+<li>A sequence of user environments called generations</li>
+<li><code>$HOME/.nix-profile</code>
+<ul>
+<li>The user's current profile</li>
+<li>Usually is a symlink to <code>/nix/var/nix/profiles/default</code></li>
+</ul>
+</li>
+<li><code>nix profile history</code></li>
+<li><code>nix profile list</code></li>
+</ul>
+<h2 id="Nix_expressions">Nix expressions<a class="zola-anchor" href="#Nix_expressions" aria-label="Anchor link for: Nix_expressions">🔗</a></h2>
+<ul>
+<li>Describe packages and how to build packages</li>
+<li>All expressions are in https://github.com/NixOS/nixpkgs</li>
+</ul>
+<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">downloading Nix expressions from `http:&#x2F;&#x2F;releases.nixos.org&#x2F;nixpkgs&#x2F;nixpkgs-14.10pre46060.a1a2851&#x2F;nixexprs.tar.xz&#x27;...
+</code></pre>
+<h2 id="Nix_channels">Nix channels<a class="zola-anchor" href="#Nix_channels" aria-label="Anchor link for: Nix_channels">🔗</a></h2>
+<ul>
+<li>Are a set of downloadable packages and expressions</li>
+</ul>
+<h2 id="nix_repl"><code>nix repl</code><a class="zola-anchor" href="#nix_repl" aria-label="Anchor link for: nix_repl">🔗</a></h2>
+<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">nix-repl&gt; :t { abc = &quot;e&quot;; }
+a set
+</code></pre>
+<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">nix-repl&gt; :t {arg1, arg2, ...}: {foo = &quot;bar&quot;;}
+a function
+</code></pre>
+<h2 id="NIX_PATH"><code>NIX_PATH</code><a class="zola-anchor" href="#NIX_PATH" aria-label="Anchor link for: NIX_PATH">🔗</a></h2>
+<h2 id="~/.nix-defexpr"><code>~/.nix-defexpr</code><a class="zola-anchor" href="#~&#x2F;.nix-defexpr" aria-label="Anchor link for: ~&#x2F;.nix-defexpr">🔗</a></h2>
+<ul>
+<li>Has several valid file or directory formats. See <code>nix-env --help</code></li>
+</ul>
+<h2 id="nix-env"><code>nix-env</code><a class="zola-anchor" href="#nix-env" aria-label="Anchor link for: nix-env">🔗</a></h2>
+<ul>
+<li>Manages environments, profiles and their generations</li>
+</ul>
+<h3 id="Operation_--install_(-i)">Operation <code>--install</code> (<code>-i</code>)<a class="zola-anchor" href="#Operation_--install_(-i)" aria-label="Anchor link for: Operation_--install_(-i)">🔗</a></h3>
+<ul>
+<li><code>nix-env -iA &lt;attribute paths that select attributes from the not-level Nix expression&gt;</code>
+<ul>
+<li>Unambiguous, faster, preferred</li>
+</ul>
+</li>
+<li><code>nix-env -i &lt;derivation names of active Nix expression&gt;</code>
+<ul>
+<li>Possibly ambiguous</li>
+</ul>
+</li>
+<li><code>--dry-run</code> flag</li>
+<li>By default, all outputs of a derivation are installed.</li>
+</ul>
+<h3 id="Operation_--upgrade">Operation <code>--upgrade</code><a class="zola-anchor" href="#Operation_--upgrade" aria-label="Anchor link for: Operation_--upgrade">🔗</a></h3>
+<h3 id="Operation_--uninstall">Operation <code>--uninstall</code><a class="zola-anchor" href="#Operation_--uninstall" aria-label="Anchor link for: Operation_--uninstall">🔗</a></h3>
+<h3 id="Operation_--query_(-q)-1">Operation <code>--query</code> (<code>-q</code>)<a class="zola-anchor" href="#Operation_--query_(-q)-1" aria-label="Anchor link for: Operation_--query_(-q)-1">🔗</a></h3>
+<ul>
+<li><code>nix-env -q --out-path</code> prints output paths of all derivations of this user's profile's current generation</li>
+</ul>
+
+    </div>
+    
+</article>
+
+
+    <footer>
+        <p>
+            
+<span class="icon-text">
+  
+
+  
+  <a href="https://twitter.com/normful" aria-label="Open normful Twitter" target="_blank">
+    <span class="icon is-large">
+      <i class="fab fa-twitter fa-lg" aria-hidden="true" title="Twitter"></i>
+    </span>
+  </a>
+  
+
+  
+  <a href="https://github.com/normful" aria-label="Open normful GitHub" target="_blank">
+    <span class="icon is-large">
+      <i class="fab fa-github fa-lg" aria-hidden="true" title="GitHub"></i>
+    </span>
+  </a>
+  
+
+  
+  <a href="https://www.linkedin.com/in/normansue" aria-label="Open normansue LinkedIn" target="_blank">
+    <span class="icon is-large">
+      <i class="fab fa-linkedin fa-lg" aria-hidden="true" title="LinkedIn"></i>
+    </span>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a href="/atom.xml" aria-label="Open atom xml feed" target="_blank">
+    <span class="icon is-large">
+      <i class="fas fa-rss fa-lg" aria-hidden="true" title="atom xml feed"></i>
+    </span>
+  </a>
+  
+
+  
+</span>
+
+        </p>
+        <p>
+            
+            
+        </p>
+    </footer>
+</div>
+</body>
+</html>

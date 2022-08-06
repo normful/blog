@@ -22,6 +22,10 @@
         <lastmod>2021-05-03T09:19:42+00:00</lastmod>
     </url>
     <url>
+        <loc>/blog/nix-pills/</loc>
+        <lastmod>2022-08-05</lastmod>
+    </url>
+    <url>
         <loc>/blog/nixos-in-vmware-fusion/</loc>
         <lastmod>2022-08-05</lastmod>
     </url>
@@ -73,6 +77,9 @@
     </url>
     <url>
         <loc>/tags/math/</loc>
+    </url>
+    <url>
+        <loc>/tags/nix/</loc>
     </url>
     <url>
         <loc>/tags/nixos/</loc>

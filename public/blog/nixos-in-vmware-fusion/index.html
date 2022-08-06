@@ -61,6 +61,8 @@
   
 
   
+    <link rel="next" href="/blog/nix-pills/">
+  
 
   
     <meta name="twitter:card" content="summary">
@@ -259,6 +261,8 @@
 <ol>
 <li>Fill in <code>NIXADDR</code> in the <code>Makefile</code> using the IP address.</li>
 <li><code>make vm/boostrap0</code> and wait it to finish and reboot.</li>
+<li><code>docker run -it --rm alpine mkpasswd -m sha-512</code> and copy the password hash to <code>nixos-config/users/norman/nixos.nix</code> in <code>users.users.norman.hashedPassword</code>.</li>
+<li>Copy <code>~/.ssh/id_ed25519.pub</code> to <code>nixos-config/users/norman/nixos.nix</code> in <code>users.users.norman.openssh.authorizedKeys.keys</code>.</li>
 <li><code>make vm/boostrap</code> and wait it to finish and reboot.</li>
 </ol>
 
