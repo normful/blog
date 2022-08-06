@@ -151,7 +151,7 @@
     <div class="article-info">
         
         
-        <div class="article-date">August  5, 2022 ◦ 7 min ◦ </div>
+        <div class="article-date">August  5, 2022 ◦ 8 min ◦ </div>
         
         <div class="article-taxonomies">
             
@@ -317,10 +317,8 @@
 <li>There are only expressions.</li>
 <li>Values are immutable.</li>
 <li>It's all about creating derivations, which are really just sets of attributes to be passed to build scripts.</li>
-<li>Expressions will be parsed as paths, assuming there's not <code>/ </code></li>
 </ul>
-<h2 id="Simple_Values">Simple Values<a class="zola-anchor" href="#Simple_Values" aria-label="Anchor link for: Simple_Values">🔗</a></h2>
-<h3 id="Strings">Strings<a class="zola-anchor" href="#Strings" aria-label="Anchor link for: Strings">🔗</a></h3>
+<h2 id="Strings">Strings<a class="zola-anchor" href="#Strings" aria-label="Anchor link for: Strings">🔗</a></h2>
 <p>Things coerceable to a string:</p>
 <ul>
 <li>string</li>
@@ -359,17 +357,19 @@
 <pre><code>nix-repl&gt; &#x27;&#x27;test &#x27;&#x27;${foo} test&#x27;&#x27;
 &quot;test ${foo} test&quot;
 </code></pre>
-<p>URIs can be written without surrounding <code>&quot;</code>.</p>
-<h3 id="Paths">Paths<a class="zola-anchor" href="#Paths" aria-label="Anchor link for: Paths">🔗</a></h3>
+<p>URIs can be written without surrounding <code>&quot;</code>, but is considered an <a href="https://nix.dev/anti-patterns/language#unquoted-urls">anti-pattern</a>.</p>
+<h2 id="Paths">Paths<a class="zola-anchor" href="#Paths" aria-label="Anchor link for: Paths">🔗</a></h2>
 <p>A path must have at least one <code>/</code>.</p>
 <p>A path can be specified between angle brackets, e.g. <code>&lt;nixpkgs&gt;</code>.</p>
 <pre><code>nix-repl&gt; :t &lt;nixpkgs&gt;
 a path
 </code></pre>
+<p>However, <code>&lt;nixpkgs&gt;</code> is <a href="https://nix.dev/anti-patterns/language#search-path">not reproducible</a> unless Nixpkgs is <a href="https://nix.dev/reference/pinning-nixpkgs">pinned</a>.</p>
 <p>A path to the current directory:</p>
 <pre><code>nix-repl&gt; :t .&#x2F;.
 a path
 </code></pre>
+<p>However, <code>./.</code> is an <a href="https://nix.dev/anti-patterns/language#attr1-attr2-merge-operator">anti-pattern</a> because it relies on the name of the folder where the code was built. Use the <code>builtins.path</code> function instead.</p>
 <p>A path containing antiquotation:</p>
 <pre><code>nix-repl&gt; foo = &quot;x&quot;
 
@@ -405,23 +405,46 @@ a set
 <pre><code>nix-repl&gt; { a = 3; b = a+4; }
 error: undefined variable `a&#x27; at (string):1:10
 </code></pre>
-<h3 id="Recursive_Sets_(a.k.a._Recursive_Attribute_Sets)_--_rec">Recursive Sets (a.k.a. Recursive Attribute Sets) -- <code>rec</code><a class="zola-anchor" href="#Recursive_Sets_(a.k.a._Recursive_Attribute_Sets)_--_rec" aria-label="Anchor link for: Recursive_Sets_(a.k.a._Recursive_Attribute_Sets)_--_rec">🔗</a></h3>
+<h3 id="Recursive_Sets_(a.k.a._Recursive_Attribute_Sets):_rec">Recursive Sets (a.k.a. Recursive Attribute Sets): <code>rec</code><a class="zola-anchor" href="#Recursive_Sets_(a.k.a._Recursive_Attribute_Sets):_rec" aria-label="Anchor link for: Recursive_Sets_(a.k.a._Recursive_Attribute_Sets):_rec">🔗</a></h3>
 <pre><code>nix-repl&gt; rec { a = 3; b = a+4; }
 { a = 3; b = 7; }
 </code></pre>
 <p>In a recursive set, attributes are added to the lexical scope of that same set.</p>
 <p>Can cause an infinite recursion error if used improperly.</p>
+<p>Using <code>rec</code> is considered an <a href="https://nix.dev/anti-patterns/language#rec-expression">anti-pattern</a> and can be replaced with a let-expression.</p>
 <h3 id="Argument_Sets">Argument Sets<a class="zola-anchor" href="#Argument_Sets" aria-label="Anchor link for: Argument_Sets">🔗</a></h3>
 <p>Argument sets are used in functions.</p>
 <h2 id="Let-expressions">Let-expressions<a class="zola-anchor" href="#Let-expressions" aria-label="Anchor link for: Let-expressions">🔗</a></h2>
-<p>The <code>let</code> construct adds the initial expressions to the lexical scope of the expression after <code>in</code>:</p>
-<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">let
-  x = &quot;foo&quot;;
-  y = &quot;bar&quot;;
-in x + y
+<p>The <code>let</code> construct adds the variable assignments to the lexical scope of the expression after <code>in</code>:</p>
+<pre><code>nix-repl&gt; let a = 3; b = 4; in a + b
+7
+</code></pre>
+<p>Two let expressions, one inside the other:</p>
+<pre><code>nix-repl&gt; let a = 3; in let b = 4; in a + b
+7
+</code></pre>
+<p>Nested let expressions can have shadowed variables:</p>
+<pre><code>nix-repl&gt; let a = 3; in let a = 8; in a
+8
+</code></pre>
+<h2 id="With-expressions">With-expressions<a class="zola-anchor" href="#With-expressions" aria-label="Anchor link for: With-expressions">🔗</a></h2>
+<p>A with-expression takes a <code>set1</code> and includes symbols from <code>set1</code> in the scope of expression <code>expr2</code>:</p>
+<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">with set1; expr2
+</code></pre>
+<p>Examples:</p>
+<pre><code>nix-repl&gt; longName = { a = 3; b = 4; }
+nix-repl&gt; with longName; a + b
+7
+</code></pre>
+<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">let blah = { x = &quot;foo&quot;; y = &quot;bar&quot;; }; in
+  with blah; x + y
 </code></pre>
 <p>evaluates to &quot;foobar&quot;.</p>
-<h2 id="Inheriting_attributes_--_inherit">Inheriting attributes -- <code>inherit</code><a class="zola-anchor" href="#Inheriting_attributes_--_inherit" aria-label="Anchor link for: Inheriting_attributes_--_inherit">🔗</a></h2>
+<p>The most common use of <code>with</code> is in conjunction with the import function:</p>
+<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">with (import .&#x2F;definitions.nix); ...
+</code></pre>
+<p>makes all attributes defined in <code>definitions.nix</code> available as if they were defined locally in a let-expression.</p>
+<h2 id="Inheriting_attributes:_inherit">Inheriting attributes: <code>inherit</code><a class="zola-anchor" href="#Inheriting_attributes:_inherit" aria-label="Anchor link for: Inheriting_attributes:_inherit">🔗</a></h2>
 <pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">let x = 123; in
 { inherit x;
   y = 456;
@@ -433,28 +456,41 @@ in x + y
   &quot;y&quot; = 456;
 }
 </code></pre>
-<p>and both evaluate to { x = 123; y = 456; }.</p>
+<p>and both evaluate to <code>{ x = 123; y = 456; }</code>.</p>
 <p>-- </p>
-<p>The fragment</p>
+<p>The following fragment:</p>
 <p>``
-...
 inherit x y z;
-inherit (src-set) a b c;
-...</p>
+inherit (src-set) a b c;</p>
 <pre><code>
-is equivalent to
+is equivalent to the fragment:
 
 </code></pre>
-<p>...
-x = x; y = y; z = z;
-a = src-set.a; b = src-set.b; c = src-set.c;
-...</p>
+<p>x = x; y = y; z = z;
+a = src-set.a; b = src-set.b; c = src-set.c;</p>
 <pre><code>
 when used while defining local variables in a let-expression or while defining a set.
 
 &lt;https:&#x2F;&#x2F;nixos.org&#x2F;manual&#x2F;nix&#x2F;stable&#x2F;expressions&#x2F;language-constructs.html#inheriting-attributes&gt;
 
 ## Functions
+
+
+
+&lt;!-- TODO(norman): Continue from here https:&#x2F;&#x2F;nixos.org&#x2F;manual&#x2F;nix&#x2F;stable&#x2F;expressions&#x2F;language-constructs.html#functions --&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -465,6 +501,10 @@ when used while defining local variables in a let-expression or while defining a
 if e1 then e2 else e3
 </code></pre>
 <p>where <code>e1</code> is an expression that should evaluate to a Boolean value (<code>true</code> or <code>false</code>).</p>
+<h2 id="with_expressions"><code>with</code> expressions<a class="zola-anchor" href="#with_expressions" aria-label="Anchor link for: with_expressions">🔗</a></h2>
+<!-- TODO(norman): Add notes about https://nix.dev/anti-patterns/language#with-attrset-expression -->
+<h2 id="Operators">Operators<a class="zola-anchor" href="#Operators" aria-label="Anchor link for: Operators">🔗</a></h2>
+<p>The <code>set1 // set2</code> operator is considered an <a href="https://nix.dev/anti-patterns/language#search-path">anti-pattern</a> because a nested set in <code>set1</code> is replaced by a nested set in <code>set2</code>, not merged together. Use the <code>pkgs.lib.recursiveUpdate</code> function instead.</p>
 <h1 id="nix-build_command"><code>nix-build</code> command<a class="zola-anchor" href="#nix-build_command" aria-label="Anchor link for: nix-build_command">🔗</a></h1>
 <p>Builds a Nix store derivation from a Nix expression.</p>
 <p><a href="https://nixos.org/manual/nix/stable/command-ref/nix-build.html">https://nixos.org/manual/nix/stable/command-ref/nix-build.html</a></p>
@@ -475,6 +515,31 @@ if e1 then e2 else e3
 </ol>
 <h1 id="Common_Command_Options">Common Command Options<a class="zola-anchor" href="#Common_Command_Options" aria-label="Anchor link for: Common_Command_Options">🔗</a></h1>
 <p><a href="https://nixos.org/manual/nix/stable/command-ref/opt-common.html">https://nixos.org/manual/nix/stable/command-ref/opt-common.html</a></p>
+<!-- TODO(norman): Read in this order:
+
+https://nixos.org/guides/nix-pills/functions-and-imports.html
+
+https://scrive.github.io/nix-workshop/
+
+https://github.com/tazjin/nix-1p
+
+https://github.com/justinwoo/nix-shorts/tree/master/posts
+
+https://nix.dev/tutorials/declarative-and-reproducible-developer-environments 
+
+
+
+
+
+Much later, and just skimming, to confirm you understand:
+
+
+https://medium.com/@MrJamesFisher/nix-by-example-a0063a1a4c55
+
+https://github.com/humancalico/nix-learning
+
+https://ianthehenry.com/posts/how-to-learn-nix/
+-->
 
     </div>
     
