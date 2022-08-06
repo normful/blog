@@ -245,12 +245,11 @@
 </ol>
 <p>On the VM:</p>
 <ol>
-<li>Press enter to start the installer (default selection). This will run https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/system/boot/stage-1-init.sh</li>
-</ol>
+<li>Press enter to start the installer (default selection). This will run https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/system/boot/stage-1-init.sh
 <ul>
 <li>For some strange reason, at one point, it was running into an error trying to mount <code>/mnt-root</code> even though <code>/mnt-root</code> was not even mounted in latter attempts that succeeded.</li>
 </ul>
-<ol start="3">
+</li>
 <li><code>setfont ter-v32n</code> to use a larger font.</li>
 <li>Switch into into the <code>root</code> user: <code>sudo su</code></li>
 <li>Set the <code>root</code> user password to <code>root</code>: <code>passwd</code></li>
@@ -259,8 +258,8 @@
 <p>On the host:</p>
 <ol>
 <li>Fill in <code>NIXADDR</code> in the <code>Makefile</code> using the IP address.</li>
-<li><code>make vm/boostrap0</code> and wait it to finish and reboot</li>
-<li><code>make vm/boostrap1</code> and wait it to finish and reboot</li>
+<li><code>make vm/boostrap0</code> and wait it to finish and reboot.</li>
+<li><code>make vm/boostrap1</code> and wait it to finish and reboot.</li>
 </ol>
 
     </div>
