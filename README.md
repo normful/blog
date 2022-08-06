@@ -8,6 +8,10 @@
 1. `make`
 2. `git push`
 
+# Caveats
+
+- Don't forget to update `.gitattributes` if using a new image format.
+
 # Vercel workarounds used in this repo
 
 ## Problem: Vercel's `zola` version
