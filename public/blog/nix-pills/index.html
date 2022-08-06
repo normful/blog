@@ -151,7 +151,7 @@
     <div class="article-info">
         
         
-        <div class="article-date">August  5, 2022 ◦ 4 min ◦ </div>
+        <div class="article-date">August  5, 2022 ◦ 7 min ◦ </div>
         
         <div class="article-taxonomies">
             
@@ -265,7 +265,9 @@
 <li>Manages Nix channels</li>
 </ul>
 <p><a href="https://nixos.org/manual/nix/stable/command-ref/nix-channel.html">https://nixos.org/manual/nix/stable/command-ref/nix-channel.html</a></p>
-<h1 id="NIX_PATH"><code>NIX_PATH</code><a class="zola-anchor" href="#NIX_PATH" aria-label="Anchor link for: NIX_PATH">🔗</a></h1>
+<h1 id="Common_Environment_Variables">Common Environment Variables<a class="zola-anchor" href="#Common_Environment_Variables" aria-label="Anchor link for: Common_Environment_Variables">🔗</a></h1>
+<h2 id="NIX_PATH"><code>NIX_PATH</code><a class="zola-anchor" href="#NIX_PATH" aria-label="Anchor link for: NIX_PATH">🔗</a></h2>
+<p><a href="https://nixos.org/manual/nix/stable/command-ref/env-common.html#env-NIX_PATH">https://nixos.org/manual/nix/stable/command-ref/env-common.html#env-NIX_PATH</a></p>
 <h1 id="~/.nix-defexpr"><code>~/.nix-defexpr</code><a class="zola-anchor" href="#~&#x2F;.nix-defexpr" aria-label="Anchor link for: ~&#x2F;.nix-defexpr">🔗</a></h1>
 <ul>
 <li>Has several valid file or directory formats. See <code>nix-env --help</code></li>
@@ -309,21 +311,168 @@
 <li><code>nix-env -q --out-path</code> prints output paths of all derivations of this user's profile's current generation</li>
 </ul>
 <h1 id="Nix_language">Nix language<a class="zola-anchor" href="#Nix_language" aria-label="Anchor link for: Nix_language">🔗</a></h1>
-<h2 id="nix-build_command"><code>nix-build</code> command<a class="zola-anchor" href="#nix-build_command" aria-label="Anchor link for: nix-build_command">🔗</a></h2>
-<p>Builds a Nix expression.</p>
+<p>In the Nix language:</p>
+<ul>
+<li>There are no statements.</li>
+<li>There are only expressions.</li>
+<li>Values are immutable.</li>
+<li>It's all about creating derivations, which are really just sets of attributes to be passed to build scripts.</li>
+<li>Expressions will be parsed as paths, assuming there's not <code>/ </code></li>
+</ul>
+<h2 id="Simple_Values">Simple Values<a class="zola-anchor" href="#Simple_Values" aria-label="Anchor link for: Simple_Values">🔗</a></h2>
+<h3 id="Strings">Strings<a class="zola-anchor" href="#Strings" aria-label="Anchor link for: Strings">🔗</a></h3>
+<p>Things coerceable to a string:</p>
+<ul>
+<li>string</li>
+<li>path</li>
+<li>derivation</li>
+</ul>
+<p>You cannot mix strings and integers; you must first do the conversion.</p>
+<p><code>${expr}</code> is called antiquotation</p>
+<p>Multiline strings:</p>
+<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">nix-repl&gt; &quot;first
+          second
+          third&quot;
+&quot;first\n\second\n\third&quot;
+</code></pre>
+<p>Indented strings:</p>
+<pre><code>nix-repl&gt; &#x27;&#x27;
+          a
+          b
+          &#x27;&#x27;
+&quot;a\nb\n&quot;
+</code></pre>
+<p>Indented strings using <code>''</code> are common for shell scripts:</p>
+<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">stdenv.mkDerivation {
+  ...
+  postInstall =
+    &#x27;&#x27;
+      mkdir $out&#x2F;bin $out&#x2F;etc
+      cp foo $out&#x2F;bin
+      echo &quot;Hello World&quot; &gt; $out&#x2F;etc&#x2F;foo.conf
+      ${if enableBar then &quot;cp bar $out&#x2F;bin&quot; else &quot;&quot;}
+    &#x27;&#x27;;
+  ...
+}
+</code></pre>
+<p>Escaping <code>${...}</code> in <code>''</code> is done with <code>''</code>:</p>
+<pre><code>nix-repl&gt; &#x27;&#x27;test &#x27;&#x27;${foo} test&#x27;&#x27;
+&quot;test ${foo} test&quot;
+</code></pre>
+<p>URIs can be written without surrounding <code>&quot;</code>.</p>
+<h3 id="Paths">Paths<a class="zola-anchor" href="#Paths" aria-label="Anchor link for: Paths">🔗</a></h3>
+<p>A path must have at least one <code>/</code>.</p>
+<p>A path can be specified between angle brackets, e.g. <code>&lt;nixpkgs&gt;</code>.</p>
+<pre><code>nix-repl&gt; :t &lt;nixpkgs&gt;
+a path
+</code></pre>
+<p>A path to the current directory:</p>
+<pre><code>nix-repl&gt; :t .&#x2F;.
+a path
+</code></pre>
+<p>A path containing antiquotation:</p>
+<pre><code>nix-repl&gt; foo = &quot;x&quot;
+
+nix-repl&gt; :t .&#x2F;${foo}nix
+a path
+</code></pre>
+<p><a href="https://nixos.org/manual/nix/stable/expressions/language-values.html#simple-values">https://nixos.org/manual/nix/stable/expressions/language-values.html#simple-values</a></p>
+<h2 id="Lists">Lists<a class="zola-anchor" href="#Lists" aria-label="Anchor link for: Lists">🔗</a></h2>
+<p>Example:</p>
+<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">[ 123 .&#x2F;foo.nix &quot;abc&quot; (f { x = y; }) ]
+</code></pre>
+<p>A list element that is the result of a function call, must be enclosed in round parentheses.</p>
+<p>Lists are immutable, like everything else in Nix.</p>
+<p>Adding or removing elements from a list is possible, but will return a new list.</p>
+<p>Lists are lazy in values and strict in length.</p>
+<h2 id="Sets_(a.k.a._attribute_sets)">Sets (a.k.a. attribute sets)<a class="zola-anchor" href="#Sets_(a.k.a._attribute_sets)" aria-label="Anchor link for: Sets_(a.k.a._attribute_sets)">🔗</a></h2>
+<p>Sets are the core of the language.</p>
+<pre><code>nix-repl&gt; :t {unquoted=&quot;b&quot;;        &quot;quoted&quot; = &quot;d&quot;; }
+a set
+</code></pre>
+<p>A set is a list of name/value pairs (called attributes) enclosed in curly braces.</p>
+<p>Each value is an expression terminated by a semicolon.</p>
+<p>Attribute names are strings, and they may be unquoted.</p>
+<p>Attribute ordering is irrelevant.</p>
+<p>Attribute names may occur only once.</p>
+<p>Attributes can be selected from a set using the <code>.</code> operator.</p>
+<p>The <code>or</code> keyword provides a default value in an attribute selection.</p>
+<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">{ foo = 123; }.${bar} or 456
+</code></pre>
+<p>This will evaluate to 123 if bar evaluates to &quot;foo&quot; when coerced to a string and 456 otherwise (again assuming bar is antiquotable).</p>
+<p><a href="https://nixos.org/manual/nix/stable/expressions/language-values.html#sets">https://nixos.org/manual/nix/stable/expressions/language-values.html#sets</a></p>
+<p>Inside a set, you cannot normally refer to elements of the same set:</p>
+<pre><code>nix-repl&gt; { a = 3; b = a+4; }
+error: undefined variable `a&#x27; at (string):1:10
+</code></pre>
+<h3 id="Recursive_Sets_(a.k.a._Recursive_Attribute_Sets)_--_rec">Recursive Sets (a.k.a. Recursive Attribute Sets) -- <code>rec</code><a class="zola-anchor" href="#Recursive_Sets_(a.k.a._Recursive_Attribute_Sets)_--_rec" aria-label="Anchor link for: Recursive_Sets_(a.k.a._Recursive_Attribute_Sets)_--_rec">🔗</a></h3>
+<pre><code>nix-repl&gt; rec { a = 3; b = a+4; }
+{ a = 3; b = 7; }
+</code></pre>
+<p>In a recursive set, attributes are added to the lexical scope of that same set.</p>
+<p>Can cause an infinite recursion error if used improperly.</p>
+<h3 id="Argument_Sets">Argument Sets<a class="zola-anchor" href="#Argument_Sets" aria-label="Anchor link for: Argument_Sets">🔗</a></h3>
+<p>Argument sets are used in functions.</p>
+<h2 id="Let-expressions">Let-expressions<a class="zola-anchor" href="#Let-expressions" aria-label="Anchor link for: Let-expressions">🔗</a></h2>
+<p>The <code>let</code> construct adds the initial expressions to the lexical scope of the expression after <code>in</code>:</p>
+<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">let
+  x = &quot;foo&quot;;
+  y = &quot;bar&quot;;
+in x + y
+</code></pre>
+<p>evaluates to &quot;foobar&quot;.</p>
+<h2 id="Inheriting_attributes_--_inherit">Inheriting attributes -- <code>inherit</code><a class="zola-anchor" href="#Inheriting_attributes_--_inherit" aria-label="Anchor link for: Inheriting_attributes_--_inherit">🔗</a></h2>
+<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">let x = 123; in
+{ inherit x;
+  y = 456;
+}
+</code></pre>
+<p>is equivalent to</p>
+<pre><code>let x = 123; in
+{ &quot;x&quot; = x;
+  &quot;y&quot; = 456;
+}
+</code></pre>
+<p>and both evaluate to { x = 123; y = 456; }.</p>
+<p>-- </p>
+<p>The fragment</p>
+<p>``
+...
+inherit x y z;
+inherit (src-set) a b c;
+...</p>
+<pre><code>
+is equivalent to
+
+</code></pre>
+<p>...
+x = x; y = y; z = z;
+a = src-set.a; b = src-set.b; c = src-set.c;
+...</p>
+<pre><code>
+when used while defining local variables in a let-expression or while defining a set.
+
+&lt;https:&#x2F;&#x2F;nixos.org&#x2F;manual&#x2F;nix&#x2F;stable&#x2F;expressions&#x2F;language-constructs.html#inheriting-attributes&gt;
+
+## Functions
+
+
+
+
+## Conditionals
+
+```nix
+if e1 then e2 else e3
+</code></pre>
+<p>where <code>e1</code> is an expression that should evaluate to a Boolean value (<code>true</code> or <code>false</code>).</p>
+<h1 id="nix-build_command"><code>nix-build</code> command<a class="zola-anchor" href="#nix-build_command" aria-label="Anchor link for: nix-build_command">🔗</a></h1>
+<p>Builds a Nix store derivation from a Nix expression.</p>
 <p><a href="https://nixos.org/manual/nix/stable/command-ref/nix-build.html">https://nixos.org/manual/nix/stable/command-ref/nix-build.html</a></p>
 <p>Runs:</p>
 <ol>
 <li><code>nix-instantiate</code> to translate a high-level Nix expression to a low-level store derivation</li>
 <li><code>nix-store --realise</code> to build the store derivation</li>
 </ol>
-<h2 id="nix-repl"><code>nix-repl</code><a class="zola-anchor" href="#nix-repl" aria-label="Anchor link for: nix-repl">🔗</a></h2>
-<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">nix-repl&gt; :t { abc = &quot;e&quot;; }
-a set
-</code></pre>
-<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">nix-repl&gt; :t {arg1, arg2, ...}: {foo = &quot;bar&quot;;}
-a function
-</code></pre>
 <h1 id="Common_Command_Options">Common Command Options<a class="zola-anchor" href="#Common_Command_Options" aria-label="Anchor link for: Common_Command_Options">🔗</a></h1>
 <p><a href="https://nixos.org/manual/nix/stable/command-ref/opt-common.html">https://nixos.org/manual/nix/stable/command-ref/opt-common.html</a></p>
 
