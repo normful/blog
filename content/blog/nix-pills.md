@@ -6,7 +6,7 @@ date = 2022-08-05
 tags = ["nix", "nixos"]
 +++
 
-Some notes from reading https://nixos.org/guides/nix-pills/
+Succinct notes from reading https://nixos.org/guides/nix-pills/ and various Nix manual pages.
 
 # Nix Store
 
@@ -14,14 +14,14 @@ Some notes from reading https://nixos.org/guides/nix-pills/
 
 ## User Environments
 
-- A user environments is a `/nix/store/<hash>-user-environment` folder
+- A user environment is a `/nix/store/<hash>-user-environment` folder
 
 ### Manifest of a User Environment
 
 - `/nix/store/<hash>-user-environment/manifest.nix (symlink) -> /nix/store/hash-env-manifest.nix (file)`
 - Current manifest: `~/.nix-profile/manifest.nix`
 
-## `nix-store`
+## `nix-store` command
 
 - Manipulates or queries the Nix store
 
@@ -35,12 +35,12 @@ Some notes from reading https://nixos.org/guides/nix-pills/
 
 #### Querying requisites
 
-These are all equivalent and print the closure (the dependencies) of `man`:
+To print the closure, i.e. the dependencies, of `man` (all equivalent commands):
 - `nix-store -qR \`which man\``
 - `nix-store --query --requisites \`which man\``
 - `nix-store --query --requisites ~/.nix-profile/bin/man`
 
-Same thing in form:
+To show the closure of `man` in tree form:
 - `nix-store --query --tree \`which man\``
 
 ## Nix database
@@ -49,11 +49,17 @@ Same thing in form:
 
 ## Derivations
 
-- Stored as `/nix/store/hash-name`
-- Identified by their hash
-- Can have the same name but different hashes (thus derivation names by themselves are ambiguous)
+A Nix derivation:
+- is stored at `/nix/store/hash-name`
+- is identified by its hash
+- can have the same name as another derivation, but with a different hash
+- is ambiguous if specified by its name only
+- has static dependencies, with dependencies hardcoded in them (even hardcoded in binaries)
+
+If a derivation X depends on a derivation Y, then it always depends on it. A version of X which depended on Z would be a different derivation.
 
 Upgrading a library like glibc means recompiling all applications, because the glibc path is hardcoded.
+
 There's no such global path for plugins, so each application must know the specific Nix store path to each plugin.
 
 ### Attribute paths
@@ -67,27 +73,35 @@ There's no such global path for plugins, so each application must know the speci
 
 ## Profiles
 
-- A set of packages
-- Versioned using generations
-- A sequence of user environments called generations
-- `$HOME/.nix-profile`
-    - The user's current profile
-    - Usually is a symlink to `/nix/var/nix/profiles/default`
+A Nix profile is:
+- a set of packages
+- versioned using generations
+- a sequence of user environments called generations
+
+`$HOME/.nix-profile` is:
+- The user's current profile
+- Usually is a symlink to `/nix/var/nix/profiles/default`
+
+### `nix profile` command
+
 - `nix profile history`
 - `nix profile list`
 
 ## Nix expressions
 
-- Describe packages and how to build packages
-- All expressions are in https://github.com/NixOS/nixpkgs
+Nix expressions:
+- describe packages and how to build packages
+- are all at https://github.com/NixOS/nixpkgs
 
-```sh
-downloading Nix expressions from `http://releases.nixos.org/nixpkgs/nixpkgs-14.10pre46060.a1a2851/nixexprs.tar.xz'...
-```
+## Channels
 
-## Nix channels
+A Nix channel:
+- is a set of downloadable packages and expressions.
+- is a URL pointing to a place containing Nix expressions.
 
-- Are a set of downloadable packages and expressions
+### `nix-channel` command
+
+- Manages Nix channels
 
 ## `nix repl`
 
@@ -127,4 +141,3 @@ a function
 ### Operation `--query` (`-q`)
 
 - `nix-env -q --out-path` prints output paths of all derivations of this user's profile's current generation
-
