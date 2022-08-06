@@ -153,11 +153,8 @@ In the Nix language:
 - There are only expressions.
 - Values are immutable.
 - It's all about creating derivations, which are really just sets of attributes to be passed to build scripts.
-- Expressions will be parsed as paths, assuming there's not `/ `
 
-## Simple Values
-
-### Strings
+## Strings
 
 Things coerceable to a string:
 - string
@@ -210,9 +207,9 @@ nix-repl> ''test ''${foo} test''
 "test ${foo} test"
 ```
 
-URIs can be written without surrounding `"`.
+URIs can be written without surrounding `"`, but is considered an [anti-pattern](https://nix.dev/anti-patterns/language#unquoted-urls).
 
-### Paths
+## Paths
 
 A path must have at least one `/`.
 
@@ -223,12 +220,16 @@ nix-repl> :t <nixpkgs>
 a path
 ```
 
+However, `<nixpkgs>` is [not reproducible](https://nix.dev/anti-patterns/language#search-path) unless Nixpkgs is [pinned](https://nix.dev/reference/pinning-nixpkgs).
+
 A path to the current directory:
 
 ```
 nix-repl> :t ./.
 a path
 ```
+
+However, `./.` is an [anti-pattern](https://nix.dev/anti-patterns/language#attr1-attr2-merge-operator) because it relies on the name of the folder where the code was built. Use the `builtins.path` function instead.
 
 A path containing antiquotation:
 
@@ -295,7 +296,7 @@ nix-repl> { a = 3; b = a+4; }
 error: undefined variable `a' at (string):1:10
 ```
 
-### Recursive Sets (a.k.a. Recursive Attribute Sets) -- `rec`
+### Recursive Sets (a.k.a. Recursive Attribute Sets): `rec`
 
 ```
 nix-repl> rec { a = 3; b = a+4; }
@@ -306,24 +307,68 @@ In a recursive set, attributes are added to the lexical scope of that same set.
 
 Can cause an infinite recursion error if used improperly.
 
+Using `rec` is considered an [anti-pattern](https://nix.dev/anti-patterns/language#rec-expression) and can be replaced with a let-expression.
+
 ### Argument Sets
 
 Argument sets are used in functions.
 
 ## Let-expressions
 
-The `let` construct adds the initial expressions to the lexical scope of the expression after `in`:
+The `let` construct adds the variable assignments to the lexical scope of the expression after `in`:
+
+```
+nix-repl> let a = 3; b = 4; in a + b
+7
+```
+
+Two let expressions, one inside the other:
+
+```
+nix-repl> let a = 3; in let b = 4; in a + b
+7
+```
+
+Nested let expressions can have shadowed variables:
+
+```
+nix-repl> let a = 3; in let a = 8; in a
+8
+```
+
+## With-expressions
+
+A with-expression takes a `set1` and includes symbols from `set1` in the scope of expression `expr2`:
 
 ```nix
-let
-  x = "foo";
-  y = "bar";
-in x + y
+with set1; expr2
+```
+
+Examples:
+
+```
+nix-repl> longName = { a = 3; b = 4; }
+nix-repl> with longName; a + b
+7
+```
+
+```nix
+let blah = { x = "foo"; y = "bar"; }; in
+  with blah; x + y
 ```
 
 evaluates to "foobar".
 
-## Inheriting attributes -- `inherit`
+The most common use of `with` is in conjunction with the import function:
+
+```nix
+with (import ./definitions.nix); ...
+```
+
+makes all attributes defined in `definitions.nix` available as if they were defined locally in a let-expression.
+
+
+## Inheriting attributes: `inherit`
 
 ```nix
 let x = 123; in
@@ -341,27 +386,23 @@ let x = 123; in
 }
 ```
 
-and both evaluate to { x = 123; y = 456; }.
+and both evaluate to `{ x = 123; y = 456; }`.
 
 -- 
 
-The fragment
+The following fragment:
 
 ``
-...
 inherit x y z;
 inherit (src-set) a b c;
-...
 
 ```
 
-is equivalent to
+is equivalent to the fragment:
 
 ```
-...
 x = x; y = y; z = z;
 a = src-set.a; b = src-set.b; c = src-set.c;
-...
 ```
 
 when used while defining local variables in a let-expression or while defining a set.
@@ -369,6 +410,23 @@ when used while defining local variables in a let-expression or while defining a
 <https://nixos.org/manual/nix/stable/expressions/language-constructs.html#inheriting-attributes>
 
 ## Functions
+
+
+
+<!-- TODO(norman): Continue from here https://nixos.org/manual/nix/stable/expressions/language-constructs.html#functions -->
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -380,6 +438,16 @@ if e1 then e2 else e3
 ```
 
 where `e1` is an expression that should evaluate to a Boolean value (`true` or `false`).
+
+## `with` expressions
+
+<!-- TODO(norman): Add notes about https://nix.dev/anti-patterns/language#with-attrset-expression -->
+
+## Operators
+
+
+The `set1 // set2` operator is considered an [anti-pattern](https://nix.dev/anti-patterns/language#search-path) because a nested set in `set1` is replaced by a nested set in `set2`, not merged together. Use the `pkgs.lib.recursiveUpdate` function instead.
+
 
 # `nix-build` command
 
@@ -394,3 +462,16 @@ Runs:
 # Common Command Options
 
 <https://nixos.org/manual/nix/stable/command-ref/opt-common.html>
+
+<!-- TODO(norman): Read in this order:
+
+https://nixos.org/guides/nix-pills/functions-and-imports.html
+
+https://github.com/tazjin/nix-1p
+
+https://github.com/justinwoo/nix-shorts/tree/master/posts
+
+https://nix.dev/tutorials/declarative-and-reproducible-developer-environments 
+
+https://medium.com/@MrJamesFisher/nix-by-example-a0063a1a4c55
+-->
