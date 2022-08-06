@@ -151,7 +151,7 @@
     <div class="article-info">
         
         
-        <div class="article-date">August  5, 2022 ◦ 3 min ◦ </div>
+        <div class="article-date">August  5, 2022 ◦ 4 min ◦ </div>
         
         <div class="article-taxonomies">
             
@@ -170,21 +170,13 @@
     
     
     <div class="content">
-        <p>Some notes from reading https://nixos.org/guides/nix-pills/</p>
+        <p>Succinct notes from reading https://nixos.org/guides/nix-pills/ and various Nix manual pages.</p>
 <h1 id="Nix_Store">Nix Store<a class="zola-anchor" href="#Nix_Store" aria-label="Anchor link for: Nix_Store">🔗</a></h1>
 <ul>
 <li>Never change <code>/nix/store</code> manually.</li>
 </ul>
-<h2 id="User_Environments">User Environments<a class="zola-anchor" href="#User_Environments" aria-label="Anchor link for: User_Environments">🔗</a></h2>
-<ul>
-<li>A user environments is a <code>/nix/store/&lt;hash&gt;-user-environment</code> folder</li>
-</ul>
-<h3 id="Manifest_of_a_User_Environment">Manifest of a User Environment<a class="zola-anchor" href="#Manifest_of_a_User_Environment" aria-label="Anchor link for: Manifest_of_a_User_Environment">🔗</a></h3>
-<ul>
-<li><code>/nix/store/&lt;hash&gt;-user-environment/manifest.nix (symlink) -&gt; /nix/store/hash-env-manifest.nix (file)</code></li>
-<li>Current manifest: <code>~/.nix-profile/manifest.nix</code></li>
-</ul>
-<h2 id="nix-store"><code>nix-store</code><a class="zola-anchor" href="#nix-store" aria-label="Anchor link for: nix-store">🔗</a></h2>
+<h2 id="nix-store_command"><code>nix-store</code> command<a class="zola-anchor" href="#nix-store_command" aria-label="Anchor link for: nix-store_command">🔗</a></h2>
+<p><a href="https://nixos.org/manual/nix/stable/command-ref/nix-store.html">https://nixos.org/manual/nix/stable/command-ref/nix-store.html</a></p>
 <ul>
 <li>Manipulates or queries the Nix store</li>
 </ul>
@@ -195,79 +187,95 @@
 </ul>
 <h3 id="Operation_--query_(-q)">Operation <code>--query</code> (<code>-q</code>)<a class="zola-anchor" href="#Operation_--query_(-q)" aria-label="Anchor link for: Operation_--query_(-q)">🔗</a></h3>
 <h4 id="Querying_requisites">Querying requisites<a class="zola-anchor" href="#Querying_requisites" aria-label="Anchor link for: Querying_requisites">🔗</a></h4>
-<p>These are all equivalent and print the closure (the dependencies) of <code>man</code>:</p>
+<p>To print the closure, i.e. the dependencies, of <code>man</code> (all equivalent commands):</p>
 <ul>
 <li><code>nix-store -qR \</code>which man``</li>
 <li><code>nix-store --query --requisites \</code>which man``</li>
 <li><code>nix-store --query --requisites ~/.nix-profile/bin/man</code></li>
 </ul>
-<p>Same thing in form:</p>
+<p>To show the closure of <code>man</code> in tree form:</p>
 <ul>
 <li><code>nix-store --query --tree \</code>which man``</li>
 </ul>
-<h2 id="Nix_database">Nix database<a class="zola-anchor" href="#Nix_database" aria-label="Anchor link for: Nix_database">🔗</a></h2>
+<h1 id="User_Environments">User Environments<a class="zola-anchor" href="#User_Environments" aria-label="Anchor link for: User_Environments">🔗</a></h1>
 <ul>
-<li>Is a SQLite database at <code>/nix/var/nix/db</code> that tracks dependencies between derivations.</li>
+<li>A user environment is a <code>/nix/store/&lt;hash&gt;-user-environment</code> folder</li>
 </ul>
-<h2 id="Derivations">Derivations<a class="zola-anchor" href="#Derivations" aria-label="Anchor link for: Derivations">🔗</a></h2>
+<h2 id="Manifest_of_a_User_Environment">Manifest of a User Environment<a class="zola-anchor" href="#Manifest_of_a_User_Environment" aria-label="Anchor link for: Manifest_of_a_User_Environment">🔗</a></h2>
 <ul>
-<li>Stored as <code>/nix/store/hash-name</code></li>
-<li>Identified by their hash</li>
-<li>Can have the same name but different hashes (thus derivation names by themselves are ambiguous)</li>
+<li><code>/nix/store/&lt;hash&gt;-user-environment/manifest.nix (symlink) -&gt; /nix/store/hash-env-manifest.nix (file)</code></li>
+<li>Current manifest: <code>~/.nix-profile/manifest.nix</code></li>
 </ul>
-<p>Upgrading a library like glibc means recompiling all applications, because the glibc path is hardcoded.
-There's no such global path for plugins, so each application must know the specific Nix store path to each plugin.</p>
-<h3 id="Attribute_paths">Attribute paths<a class="zola-anchor" href="#Attribute_paths" aria-label="Anchor link for: Attribute_paths">🔗</a></h3>
+<h1 id="Derivations">Derivations<a class="zola-anchor" href="#Derivations" aria-label="Anchor link for: Derivations">🔗</a></h1>
+<p>A Nix derivation:</p>
+<ul>
+<li>is stored at <code>/nix/store/hash-name</code></li>
+<li>is identified by its hash</li>
+<li>can have the same name as another derivation, but with a different hash</li>
+<li>is ambiguous if specified by its name only</li>
+<li>has static dependencies, with dependencies hardcoded in them (even hardcoded in binaries)</li>
+<li>is often interchangeably referred to as a package</li>
+</ul>
+<p>If a derivation X depends on a derivation Y, then it always depends on it. A version of X which depended on Z would be a different derivation.</p>
+<p>Upgrading a library like glibc means recompiling all applications, because the glibc path is hardcoded.</p>
+<p>There's no such global path for plugins, so each application must know the specific Nix store path to each plugin.</p>
+<h2 id="Attribute_paths_of_a_derivation">Attribute paths of a derivation<a class="zola-anchor" href="#Attribute_paths_of_a_derivation" aria-label="Anchor link for: Attribute_paths_of_a_derivation">🔗</a></h2>
 <ul>
 <li>Attribute paths: unambiguous</li>
 <li>Derivation names: ambiguous</li>
 </ul>
-<h3 id="Closure_of_a_Derivation">Closure of a Derivation<a class="zola-anchor" href="#Closure_of_a_Derivation" aria-label="Anchor link for: Closure_of_a_Derivation">🔗</a></h3>
+<h2 id="Closure_of_a_derivation">Closure of a derivation<a class="zola-anchor" href="#Closure_of_a_derivation" aria-label="Anchor link for: Closure_of_a_derivation">🔗</a></h2>
 <ul>
 <li>Is a list of all a derivation's dependencies, recursively</li>
 </ul>
-<h2 id="Profiles">Profiles<a class="zola-anchor" href="#Profiles" aria-label="Anchor link for: Profiles">🔗</a></h2>
+<h1 id="Nix_database">Nix database<a class="zola-anchor" href="#Nix_database" aria-label="Anchor link for: Nix_database">🔗</a></h1>
 <ul>
-<li>A set of packages</li>
-<li>Versioned using generations</li>
-<li>A sequence of user environments called generations</li>
-<li><code>$HOME/.nix-profile</code>
+<li>Is a SQLite database at <code>/nix/var/nix/db</code> that tracks dependencies between derivations.</li>
+</ul>
+<h1 id="Nix_Profiles">Nix Profiles<a class="zola-anchor" href="#Nix_Profiles" aria-label="Anchor link for: Nix_Profiles">🔗</a></h1>
+<p>A Nix profile is:</p>
+<ul>
+<li>a set of derivations (a set of packages)</li>
+<li>versioned using a a sequence of user environments called generations</li>
+</ul>
+<p><code>$HOME/.nix-profile</code> is:</p>
 <ul>
 <li>The user's current profile</li>
 <li>Usually is a symlink to <code>/nix/var/nix/profiles/default</code></li>
 </ul>
-</li>
+<h2 id="nix_profile_command"><code>nix profile</code> command<a class="zola-anchor" href="#nix_profile_command" aria-label="Anchor link for: nix_profile_command">🔗</a></h2>
+<ul>
 <li><code>nix profile history</code></li>
 <li><code>nix profile list</code></li>
 </ul>
-<h2 id="Nix_expressions">Nix expressions<a class="zola-anchor" href="#Nix_expressions" aria-label="Anchor link for: Nix_expressions">🔗</a></h2>
+<h1 id="Nix_expressions">Nix expressions<a class="zola-anchor" href="#Nix_expressions" aria-label="Anchor link for: Nix_expressions">🔗</a></h1>
+<p>Nix expressions:</p>
 <ul>
-<li>Describe packages and how to build packages</li>
-<li>All expressions are in https://github.com/NixOS/nixpkgs</li>
+<li>describe packages and how to build packages</li>
+<li>are all at <a href="https://github.com/NixOS/nixpkgs">https://github.com/NixOS/nixpkgs</a></li>
 </ul>
-<pre data-lang="sh" class="language-sh "><code class="language-sh" data-lang="sh">downloading Nix expressions from `http:&#x2F;&#x2F;releases.nixos.org&#x2F;nixpkgs&#x2F;nixpkgs-14.10pre46060.a1a2851&#x2F;nixexprs.tar.xz&#x27;...
-</code></pre>
-<h2 id="Nix_channels">Nix channels<a class="zola-anchor" href="#Nix_channels" aria-label="Anchor link for: Nix_channels">🔗</a></h2>
+<h1 id="Nix_channels">Nix channels<a class="zola-anchor" href="#Nix_channels" aria-label="Anchor link for: Nix_channels">🔗</a></h1>
+<p>A Nix channel:</p>
 <ul>
-<li>Are a set of downloadable packages and expressions</li>
+<li>is a set of downloadable packages and expressions.</li>
+<li>is a URL pointing to a place containing Nix expressions.</li>
 </ul>
-<h2 id="nix_repl"><code>nix repl</code><a class="zola-anchor" href="#nix_repl" aria-label="Anchor link for: nix_repl">🔗</a></h2>
-<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">nix-repl&gt; :t { abc = &quot;e&quot;; }
-a set
-</code></pre>
-<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">nix-repl&gt; :t {arg1, arg2, ...}: {foo = &quot;bar&quot;;}
-a function
-</code></pre>
-<h2 id="NIX_PATH"><code>NIX_PATH</code><a class="zola-anchor" href="#NIX_PATH" aria-label="Anchor link for: NIX_PATH">🔗</a></h2>
-<h2 id="~/.nix-defexpr"><code>~/.nix-defexpr</code><a class="zola-anchor" href="#~&#x2F;.nix-defexpr" aria-label="Anchor link for: ~&#x2F;.nix-defexpr">🔗</a></h2>
+<h2 id="nix-channel_command"><code>nix-channel</code> command<a class="zola-anchor" href="#nix-channel_command" aria-label="Anchor link for: nix-channel_command">🔗</a></h2>
+<ul>
+<li>Manages Nix channels</li>
+</ul>
+<p><a href="https://nixos.org/manual/nix/stable/command-ref/nix-channel.html">https://nixos.org/manual/nix/stable/command-ref/nix-channel.html</a></p>
+<h1 id="NIX_PATH"><code>NIX_PATH</code><a class="zola-anchor" href="#NIX_PATH" aria-label="Anchor link for: NIX_PATH">🔗</a></h1>
+<h1 id="~/.nix-defexpr"><code>~/.nix-defexpr</code><a class="zola-anchor" href="#~&#x2F;.nix-defexpr" aria-label="Anchor link for: ~&#x2F;.nix-defexpr">🔗</a></h1>
 <ul>
 <li>Has several valid file or directory formats. See <code>nix-env --help</code></li>
 </ul>
-<h2 id="nix-env"><code>nix-env</code><a class="zola-anchor" href="#nix-env" aria-label="Anchor link for: nix-env">🔗</a></h2>
+<h1 id="nix-env_command"><code>nix-env</code> command<a class="zola-anchor" href="#nix-env_command" aria-label="Anchor link for: nix-env_command">🔗</a></h1>
 <ul>
 <li>Manages environments, profiles and their generations</li>
 </ul>
-<h3 id="Operation_--install_(-i)">Operation <code>--install</code> (<code>-i</code>)<a class="zola-anchor" href="#Operation_--install_(-i)" aria-label="Anchor link for: Operation_--install_(-i)">🔗</a></h3>
+<p><a href="https://nixos.org/manual/nix/stable/command-ref/nix-env.html">https://nixos.org/manual/nix/stable/command-ref/nix-env.html</a></p>
+<h2 id="Operation_--install_(-i)">Operation <code>--install</code> (<code>-i</code>)<a class="zola-anchor" href="#Operation_--install_(-i)" aria-label="Anchor link for: Operation_--install_(-i)">🔗</a></h2>
 <ul>
 <li><code>nix-env -iA &lt;attribute paths that select attributes from the not-level Nix expression&gt;</code>
 <ul>
@@ -282,12 +290,42 @@ a function
 <li><code>--dry-run</code> flag</li>
 <li>By default, all outputs of a derivation are installed.</li>
 </ul>
-<h3 id="Operation_--upgrade">Operation <code>--upgrade</code><a class="zola-anchor" href="#Operation_--upgrade" aria-label="Anchor link for: Operation_--upgrade">🔗</a></h3>
-<h3 id="Operation_--uninstall">Operation <code>--uninstall</code><a class="zola-anchor" href="#Operation_--uninstall" aria-label="Anchor link for: Operation_--uninstall">🔗</a></h3>
-<h3 id="Operation_--query_(-q)-1">Operation <code>--query</code> (<code>-q</code>)<a class="zola-anchor" href="#Operation_--query_(-q)-1" aria-label="Anchor link for: Operation_--query_(-q)-1">🔗</a></h3>
+<h2 id="Operation_--upgrade">Operation <code>--upgrade</code><a class="zola-anchor" href="#Operation_--upgrade" aria-label="Anchor link for: Operation_--upgrade">🔗</a></h2>
+<ul>
+<li>
+<p><code>nix-env -u</code></p>
+<ul>
+<li>Upgrades everything</li>
+<li>Specifically, it creates a new user environment, based on the current generation of the active profile, with newer versions of all derivations </li>
+</ul>
+</li>
+<li>
+<p><code>nix-env -u -A nixpkgs.gcc</code> is an example of upgrading one package</p>
+</li>
+</ul>
+<h2 id="Operation_--uninstall">Operation <code>--uninstall</code><a class="zola-anchor" href="#Operation_--uninstall" aria-label="Anchor link for: Operation_--uninstall">🔗</a></h2>
+<h2 id="Operation_--query_(-q)-1">Operation <code>--query</code> (<code>-q</code>)<a class="zola-anchor" href="#Operation_--query_(-q)-1" aria-label="Anchor link for: Operation_--query_(-q)-1">🔗</a></h2>
 <ul>
 <li><code>nix-env -q --out-path</code> prints output paths of all derivations of this user's profile's current generation</li>
 </ul>
+<h1 id="Nix_language">Nix language<a class="zola-anchor" href="#Nix_language" aria-label="Anchor link for: Nix_language">🔗</a></h1>
+<h2 id="nix-build_command"><code>nix-build</code> command<a class="zola-anchor" href="#nix-build_command" aria-label="Anchor link for: nix-build_command">🔗</a></h2>
+<p>Builds a Nix expression.</p>
+<p><a href="https://nixos.org/manual/nix/stable/command-ref/nix-build.html">https://nixos.org/manual/nix/stable/command-ref/nix-build.html</a></p>
+<p>Runs:</p>
+<ol>
+<li><code>nix-instantiate</code> to translate a high-level Nix expression to a low-level store derivation</li>
+<li><code>nix-store --realise</code> to build the store derivation</li>
+</ol>
+<h2 id="nix-repl"><code>nix-repl</code><a class="zola-anchor" href="#nix-repl" aria-label="Anchor link for: nix-repl">🔗</a></h2>
+<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">nix-repl&gt; :t { abc = &quot;e&quot;; }
+a set
+</code></pre>
+<pre data-lang="nix" class="language-nix "><code class="language-nix" data-lang="nix">nix-repl&gt; :t {arg1, arg2, ...}: {foo = &quot;bar&quot;;}
+a function
+</code></pre>
+<h1 id="Common_Command_Options">Common Command Options<a class="zola-anchor" href="#Common_Command_Options" aria-label="Anchor link for: Common_Command_Options">🔗</a></h1>
+<p><a href="https://nixos.org/manual/nix/stable/command-ref/opt-common.html">https://nixos.org/manual/nix/stable/command-ref/opt-common.html</a></p>
 
     </div>
     
