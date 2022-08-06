@@ -54,12 +54,17 @@ nix-store --query --tree `which man`
 # Derivations
 
 A Nix derivation:
-- is stored at `/nix/store/hash-name`
+- is stored at `/nix/store/<hash>-<name>`
 - is identified by its hash
 - can have the same name as another derivation, but with a different hash
 - is ambiguous if specified by its name only
 - has static dependencies, with dependencies hardcoded in them (even hardcoded in binaries)
 - is often interchangeably referred to as a package
+- is created from a Nix expression in a `.nix` file that is:
+    1. Evaluated/Instantiated `nix-instantiate`, which creates:
+	- a derivation file at `/nix/store/<hash>-<name>.drv`
+        - a derivation set
+    2. Built/Realised with `nix-store --realise` (or `:b` in `nix repl`)
 
 If a derivation X depends on a derivation Y, then it always depends on it. A version of X which depended on Z would be a different derivation.
 
@@ -75,6 +80,47 @@ There's no such global path for plugins, so each application must know the speci
 ## Closure of a derivation
 
 - Is a list of all a derivation's dependencies, recursively
+
+## The `builtins.derivation` function
+
+The `derivation` built-in function:
+- receives a set as its first argument
+- returns a derivation set
+
+The first argument set to `derivation` describes how to build a package, and has at least:
+- "name" attribute
+- "system" attribute
+- "builder" attribute
+
+Calling the `derivation` function produces a _derivation file_ at `/nix/store/<hash>-<name>.drv`.
+
+With the derivation function we provide a set of information on how to build a package, and we get back the information about where the package was built. 
+
+Nix converts a set to a string when there's an outPath. We refer to other derivations by their `outPath`.
+
+## Derivation Files `/nix/store/<hash>-<name>.drv`
+
+A `.drv` derivation file:
+- is a plaintext file
+- can be pretty-printed using `nix show-derivation /nix/store/<hash>-<name>.drv`
+
+## Derivation Sets
+
+A derivation set:
+- is returned by the `builtins.derivation` function
+- has the attributes:
+    - "type" = "derivation"
+    - "drvPath" = "/nix/store/<hash>-<name>.drv"
+    - "outPath" = "/nix/store/<another_hash>-<name>"
+        - This attribute behaves like a `toString` method in other languages.
+	- Calling `builtins.toString someDerivationSet` will evaluate to `someDerivationSet.outPath`
+    - "all":
+    - "builder":
+    - "drvAttrs":
+    - "name":
+    - "out":
+    - "outputName":
+    - "system":
 
 # Nix database
 
@@ -165,7 +211,7 @@ In the Nix language:
 Things coerceable to a string:
 - string
 - path
-- derivation
+- derivation (using value of a derivation set's `outPath` attribute)
 
 You cannot mix strings and integers; you must first do the conversion.
 
