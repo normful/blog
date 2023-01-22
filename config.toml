@@ -46,6 +46,8 @@ minute = "min"
 prev_page = "Newer posts"
 next_page = "Older posts"
 date_format = "%B %e, %Y"
+language_switch_en = "English"
+language_switch_ja = "日本語"
 
 [languages.ja]
 title = "ノーマンのブログ"
@@ -76,6 +78,8 @@ minute = "分"
 prev_page = "前"
 next_page = "つぎ"
 date_format = "%B %e, %Y"
+language_switch_en = "English"
+language_switch_ja = "日本語"
 
 [extra]
 menu_items = [
@@ -83,6 +87,8 @@ menu_items = [
     { name = "blog", url = "$LANG_BASE_URL/blog", show_recent = true, recent_items = 3, recent_trans_key = "recent_blog_posts", more_trans_key = "more_blog_posts" },
     { name = "tags", url = "$LANG_BASE_URL/tags" },
     { name = "about", url = "$LANG_BASE_URL/about", show_recent = false },
+    { name = "language_switch_en", url = "$BASE_URL/en" },
+    { name = "language_switch_ja", url = "$BASE_URL/ja" },
 ]
 author = "Norman Sue"
 site_url = "https://www.normful.com"
