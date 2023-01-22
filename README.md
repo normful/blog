@@ -11,6 +11,7 @@
 # Caveats
 
 - Don't forget to update `.gitattributes` if using a new image format.
+- You might need to run `git lfs fetch` and `git lfs checkout` if you previously cloned this repo without installing `git-lfs` first.
 
 # Vercel workarounds used in this repo
 
