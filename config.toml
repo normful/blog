@@ -83,6 +83,7 @@ language_switch_ja = "日本語"
 
 [extra]
 menu_items = [
+    # TODO(norman): Uncomment these rows if you eventually add content for them. 
     # { name = "projects", url = "$LANG_BASE_URL/projects", show_recent = true, recent_items = 3, recent_trans_key = "recent_projects", more_trans_key = "more_projects" },
     { name = "blog", url = "$LANG_BASE_URL/blog", show_recent = true, recent_items = 3, recent_trans_key = "recent_blog_posts", more_trans_key = "more_blog_posts" },
     # { name = "tags", url = "$LANG_BASE_URL/tags" },
