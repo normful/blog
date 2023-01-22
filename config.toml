@@ -21,6 +21,10 @@ title = "Norman's Blog"
 description = "Notes and thoughts on software, Japan, and etc."
 generate_feed = true
 feed_filename = "atom.xml"
+taxonomies = [
+    { name = "tags", rss = true },
+    { name = "categories", rss = true },
+]
 
 [languages.en.translations]
 projects = "Projects"
