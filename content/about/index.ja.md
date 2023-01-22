@@ -1,10 +1,8 @@
 +++
-title = "关于"
+title = "自分のこと"
 template = "about.html"
 +++
 
-{{ img(path="@/about/me.jpg", class="bordered", alt="这是我！", caption="这是我！") }}
+{{ img(path="@/about/me.jpg", class="bordered", alt="私", caption="私") }}
 
-&nbsp;
-
-你好，世界！
+こんにちは。

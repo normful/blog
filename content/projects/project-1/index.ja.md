@@ -1,5 +1,5 @@
 +++
-title = "软件示例"
+title = "事例プロジェクト"
 date = 2021-08-11
 
 [taxonomies]
@@ -9,7 +9,8 @@ categories = ["software"]
 repo_path = "normful/example"
 +++
 
-这是我写的第一个软件!
+はじめに
 
 <!-- more -->
 
+こんにちは！
