@@ -13,3 +13,4 @@ These pages are intended to help other people who are learning Japanese.
 Tools that I use for studying Japanese, with explanations on how I use them:
 
 - [Kanji Study (Android App)](@/blog/kanji-study.md)
+- [Anki](@/blog/anki-for-japanese.md)
