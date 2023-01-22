@@ -1,4 +1,4 @@
 /.vercel
 .DS_Store
 public
-static
+static/processed_images
