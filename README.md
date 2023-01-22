@@ -1,11 +1,12 @@
 # Personal blog
 
+[![Vercel Production Deployment](https://github.com/normful/blog/actions/workflows/deploy-prod-to-vercel.yaml/badge.svg)](https://github.com/normful/blog/actions/workflows/deploy-prod-to-vercel.yaml)
+
 - Built with [Zola](https://www.getzola.org) in [GitHub Actions](https://github.com/normful/blog/actions).
 - Deployed on Vercel at normful.com
 
 # How-To: Deploy
 
-1. `make` (or use local `makeblog` alias from any folder)
 2. `git push`
 
 # Caveats
