@@ -59,8 +59,6 @@
   
 
   
-    <link rel="prev" href="/blog/nixos-in-vmware-fusion/">
-  
 
   
 
@@ -151,7 +149,7 @@
     <div class="article-info">
         
         
-        <div class="article-date">August  5, 2022 ◦ 8 min ◦ </div>
+        <div class="article-date">August  5, 2022 ◦ 9 min ◦ </div>
         
         <div class="article-taxonomies">
             
@@ -207,12 +205,27 @@ nix-store --query --requisites ~&#x2F;.nix-profile&#x2F;bin&#x2F;man
 <h1 id="Derivations">Derivations<a class="zola-anchor" href="#Derivations" aria-label="Anchor link for: Derivations">🔗</a></h1>
 <p>A Nix derivation:</p>
 <ul>
-<li>is stored at <code>/nix/store/hash-name</code></li>
+<li>is stored at <code>/nix/store/&lt;hash&gt;-&lt;name&gt;</code></li>
 <li>is identified by its hash</li>
 <li>can have the same name as another derivation, but with a different hash</li>
 <li>is ambiguous if specified by its name only</li>
 <li>has static dependencies, with dependencies hardcoded in them (even hardcoded in binaries)</li>
 <li>is often interchangeably referred to as a package</li>
+<li>is created from a Nix expression in a <code>.nix</code> file that is:
+<ol>
+<li>Evaluated/Instantiated <code>nix-instantiate</code>, which creates:</li>
+</ol>
+<ul>
+<li>a derivation file at <code>/nix/store/&lt;hash&gt;-&lt;name&gt;.drv</code>
+<ul>
+<li>a derivation set</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>Built/Realised with <code>nix-store --realise</code> (or <code>:b</code> in <code>nix repl</code>)</li>
+</ol>
+</li>
 </ul>
 <p>If a derivation X depends on a derivation Y, then it always depends on it. A version of X which depended on Z would be a different derivation.</p>
 <p>Upgrading a library like glibc means recompiling all applications, because the glibc path is hardcoded.</p>
@@ -225,6 +238,51 @@ nix-store --query --requisites ~&#x2F;.nix-profile&#x2F;bin&#x2F;man
 <h2 id="Closure_of_a_derivation">Closure of a derivation<a class="zola-anchor" href="#Closure_of_a_derivation" aria-label="Anchor link for: Closure_of_a_derivation">🔗</a></h2>
 <ul>
 <li>Is a list of all a derivation's dependencies, recursively</li>
+</ul>
+<h2 id="The_builtins.derivation_function">The <code>builtins.derivation</code> function<a class="zola-anchor" href="#The_builtins.derivation_function" aria-label="Anchor link for: The_builtins.derivation_function">🔗</a></h2>
+<p>The <code>derivation</code> built-in function:</p>
+<ul>
+<li>receives a set as its first argument</li>
+<li>returns a derivation set</li>
+</ul>
+<p>The first argument set to <code>derivation</code> describes how to build a package, and has at least:</p>
+<ul>
+<li>&quot;name&quot; attribute</li>
+<li>&quot;system&quot; attribute</li>
+<li>&quot;builder&quot; attribute</li>
+</ul>
+<p>Calling the <code>derivation</code> function produces a <em>derivation file</em> at <code>/nix/store/&lt;hash&gt;-&lt;name&gt;.drv</code>.</p>
+<p>With the derivation function we provide a set of information on how to build a package, and we get back the information about where the package was built. </p>
+<p>Nix converts a set to a string when there's an outPath. We refer to other derivations by their <code>outPath</code>.</p>
+<h2 id="Derivation_Files_/nix/store/&lt;hash&gt;-&lt;name&gt;.drv">Derivation Files <code>/nix/store/&lt;hash&gt;-&lt;name&gt;.drv</code><a class="zola-anchor" href="#Derivation_Files_&#x2F;nix&#x2F;store&#x2F;&lt;hash&gt;-&lt;name&gt;.drv" aria-label="Anchor link for: Derivation_Files_&#x2F;nix&#x2F;store&#x2F;&lt;hash&gt;-&lt;name&gt;.drv">🔗</a></h2>
+<p>A <code>.drv</code> derivation file:</p>
+<ul>
+<li>is a plaintext file</li>
+<li>can be pretty-printed using <code>nix show-derivation /nix/store/&lt;hash&gt;-&lt;name&gt;.drv</code></li>
+</ul>
+<h2 id="Derivation_Sets">Derivation Sets<a class="zola-anchor" href="#Derivation_Sets" aria-label="Anchor link for: Derivation_Sets">🔗</a></h2>
+<p>A derivation set:</p>
+<ul>
+<li>is returned by the <code>builtins.derivation</code> function</li>
+<li>has the attributes:
+<ul>
+<li>&quot;type&quot; = &quot;derivation&quot;</li>
+<li>&quot;drvPath&quot; = &quot;/nix/store/<hash>-<name>.drv&quot;</li>
+<li>&quot;outPath&quot; = &quot;/nix/store/&lt;another_hash&gt;-<name>&quot;
+<ul>
+<li>This attribute behaves like a <code>toString</code> method in other languages.</li>
+</ul>
+</li>
+<li>Calling <code>builtins.toString someDerivationSet</code> will evaluate to <code>someDerivationSet.outPath</code></li>
+<li>&quot;all&quot;:</li>
+<li>&quot;builder&quot;:</li>
+<li>&quot;drvAttrs&quot;:</li>
+<li>&quot;name&quot;:</li>
+<li>&quot;out&quot;:</li>
+<li>&quot;outputName&quot;:</li>
+<li>&quot;system&quot;:</li>
+</ul>
+</li>
 </ul>
 <h1 id="Nix_database">Nix database<a class="zola-anchor" href="#Nix_database" aria-label="Anchor link for: Nix_database">🔗</a></h1>
 <ul>
@@ -321,7 +379,7 @@ nix-store --query --requisites ~&#x2F;.nix-profile&#x2F;bin&#x2F;man
 <ul>
 <li>string</li>
 <li>path</li>
-<li>derivation</li>
+<li>derivation (using value of a derivation set's <code>outPath</code> attribute)</li>
 </ul>
 <p>You cannot mix strings and integers; you must first do the conversion.</p>
 <p><code>${expr}</code> is called antiquotation</p>
