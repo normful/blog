@@ -41,3 +41,5 @@ The Kanji Study app allows you to quiz yourself on the writing of kanji, includi
 With the Kanji Learner's Course Graded Reading Sets add-on, all kanji and vocabulary pages in the app will display natural curated example sentences. All words in all example sentences can be looked up too.
 
 TODO(norman): Screenshot
+
+WIP
