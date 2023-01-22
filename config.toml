@@ -83,12 +83,12 @@ language_switch_ja = "日本語"
 
 [extra]
 menu_items = [
-    { name = "projects", url = "$LANG_BASE_URL/projects", show_recent = true, recent_items = 3, recent_trans_key = "recent_projects", more_trans_key = "more_projects" },
+    # { name = "projects", url = "$LANG_BASE_URL/projects", show_recent = true, recent_items = 3, recent_trans_key = "recent_projects", more_trans_key = "more_projects" },
     { name = "blog", url = "$LANG_BASE_URL/blog", show_recent = true, recent_items = 3, recent_trans_key = "recent_blog_posts", more_trans_key = "more_blog_posts" },
-    { name = "tags", url = "$LANG_BASE_URL/tags" },
-    { name = "about", url = "$LANG_BASE_URL/about", show_recent = false },
-    { name = "language_switch_en", url = "$BASE_URL/en" },
-    { name = "language_switch_ja", url = "$BASE_URL/ja" },
+    # { name = "tags", url = "$LANG_BASE_URL/tags" },
+    # { name = "about", url = "$LANG_BASE_URL/about", show_recent = false },
+    { name = "language_switch_en", url = "https://normful.com/en" },
+    { name = "language_switch_ja", url = "https://normful.com/ja" },
 ]
 author = "Norman Sue"
 site_url = "https://www.normful.com"
