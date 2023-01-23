@@ -40,7 +40,15 @@ With the Kanji Learner's Course (KLC) Graded Reading Sets add-on, all kanji and 
 
 You can make it easier to launch Kanji Study search dialog by adding the Kanji Search widget to your home screen. This widget allows you to launch the dictionary look up screen with 1 tap.
 
+{{ img(path="./widget.jpg", alt="") }}
+
+# As a rapid Anki note creator
+
+If you have [AnkiDroid](https://play.google.com/store/apps/details?id=com.ichi2.anki) installed too, you can create a new Anki note with a few buttons.
+
 {{ img(path="./add-to-anki.jpg", alt="") }}
+
+I usually do this with words and sentences that I want to remember. After creating the notes, you can then quiz yourself in AnkiDroid later. See [my other post](@/blog/anki-for-japanese/index.md) for more details.
 
 # As a study and review tool
 
