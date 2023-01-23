@@ -70,9 +70,9 @@ I find the "Writing challenges" and "Learn by reading" study sessions to be the 
 
 There's various settings for the kinds of writing challenges you can do.
 
-{{ img(path="./writing-options-1.jpg", alt="") }}
+{{ img(path="./writing-quiz-options-1.jpg", alt="") }}
 
-{{ img(path="./writing-options-2.jpg", alt="") }}
+{{ img(path="./writing-quiz-options-2.jpg", alt="") }}
 
 I tend to start with the easiest ones (the first option in each menu), and then work my way down, as I get more familiar with a particular kanji.
 
