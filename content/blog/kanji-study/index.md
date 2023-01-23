@@ -18,7 +18,7 @@ This app only exists on Android. So if you're an iOS-only user, perhaps you coul
 
 You can use Kanji Study like a dictionary. In many ways, it's better than many dictionaries because of the app generates internal links to all of the other kanji, vocabulary, and example sentences.
 
-As an example, look at the screenshot below which was generated from all of the details for the kanji 壱:
+As an example, look at the screenshot below which was generated from all of the details for the kanji 壱. I specifically chose this example because it has _fewer_ rows in each section. But many kanji have a lot more rows, with a lot more words and sentences.
 
 {{ img(path="./kanji-detail.jpg", alt="") }}
 
@@ -42,11 +42,15 @@ You can make it easier to launch Kanji Study search dialog by adding the Kanji S
 
 # As a rapid Anki note creator
 
-If you have [AnkiDroid](https://play.google.com/store/apps/details?id=com.ichi2.anki) installed too, you can create a new Anki note with a few buttons.
+If you have [AnkiDroid](https://play.google.com/store/apps/details?id=com.ichi2.anki) installed too, you can create a new Anki note in the Kanji Study app by tapping the ⊕ button when viewing a word or sentence, which launches this modal:
 
 {{ img(path="./add-to-anki.jpg", alt="") }}
 
-I usually do this with words and sentences that I want to remember. After creating the notes, you can then quiz yourself in AnkiDroid later. See [my other post](@/blog/anki-for-japanese/index.md) for more details.
+Kanji Study will automatically create and use its own Anki Note type for the new Anki Notes it creates.
+
+I usually create new Anki Notes like this for words and sentences that I want to remember. After creating the notes, you can then quiz yourself in AnkiDroid later.
+
+See my other [Anki post](@/blog/anki-for-japanese/index.md) for more details about using Anki and AnkiDroid.
 
 # As a study and review tool
 
