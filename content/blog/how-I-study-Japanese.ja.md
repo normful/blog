@@ -12,4 +12,5 @@ tags = ["japanese"]
 
 現在、以下のツールを使っています。以下のページは英語圏の人向けに書かれているので、日本語訳がまだついていないかもしれません。
 
-- [Kanji Study (アンドロイドのアプリ)](@/blog/kanji-study.md)
+- [Kanji Study (アンドロイドのアプリ)](@/blog/kanji-study/index.md)
+- [Anki](@/blog/anki-for-japanese/index.md)
