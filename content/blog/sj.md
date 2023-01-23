@@ -12,9 +12,10 @@ The pages below are intended to help other people learning Japanese, but they al
 
 Tools that have accompanying blog posts to explain how I use them:
 
+- [Reading material](@/blog/reading-japanese/index.md)
 - [Kanji Study (Android App)](@/blog/kanji-study/index.md)
-- [Anki](@/blog/anki-for-japanese/index.md)
 - [Yomichan (Google Chrome Extension)](@/blog/yomichan/index.md)
+- [Anki](@/blog/anki-for-japanese/index.md)
 
 ## Will Document Later
 
