@@ -51,7 +51,7 @@ language_switch_ja = "日本語"
 
 [languages.ja]
 title = "ノーマンのブログ"
-description = "ソフトのブログ"
+description = "ITや趣味など、様々な話題を扱う私の個人ブログです。"
 base_url = "/ja"
 taxonomies = [
     { name = "tags", rss = true },
