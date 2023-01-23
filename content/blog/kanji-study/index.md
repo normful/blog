@@ -6,15 +6,13 @@ date = 2023-01-22
 tags = ["japanese"]
 +++
 
-I use the Kanji Study Android app to look up new words in virtually all situations where I need to look up Japanese words, including when reading books, watching TV, speaking with Japanese people in real life, etc.
-
-You can download Kanji Study from the Google Play store [here](https://play.google.com/store/apps/details?id=com.mindtwisted.kanjistudy).
+I use the [Kanji Study Android app](https://mindtwisted.com) to look up new words in virtually all situations where I need to look up Japanese words, including when reading books, watching TV, speaking with Japanese people in real life, etc.
 
 The app might be only suitable for Japanese learners who are at upper elementary levels or higher (JLPT N4 or higher). I found the information in this app to be too advanced when I was a total beginner of Japanese.
 
-Unfortunately this app only exists on Android. 
+I believe this app is the very best app for serious study of Japanese, and is far superior than all other Android apps and iOS apps in this category. Other apps don't even come close in terms of the amount of information and the features of the app. 
 
-I believe this app is the very best app for serious study of Japanese, and is far superior than all other Android apps and iOS apps in this category. Other apps don't even come close in terms of the amount of information and the features of the app. So if you're a diehard iPhone can, perhaps you could consider getting another inexpensive used Android device to use this app.
+This app only exists on Android. So if you're an iOS-only user, perhaps you could consider getting another inexpensive used Android device to use this app.
 
 # As a dictionary
 
