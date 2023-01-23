@@ -10,7 +10,7 @@ tags = ["japanese"]
 
 # Anki settings in Yomichan
 
-Reusing the Kanji Study app's Word Model v3 note type, Yomichan's Anki integration is configured as follows for new words:
+Reusing the [Kanji Study](@/blog/kanji-study/index.md) app's **Word Model v3** note type, Yomichan's Anki integration is configured as follows for new words:
 
 {{ img(path="./anki-terms.png") }}
 
