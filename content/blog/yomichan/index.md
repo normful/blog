@@ -6,4 +6,4 @@ date = 2023-01-22
 tags = ["japanese"]
 +++
 
-Yomichan is a Chrome extension for looking up Japanese words in one or more dictionaries.
+[Yomichan](https://foosoft.net/projects/yomichan/) is a Chrome and Firefox extension for looking up Japanese words in one or more dictionaries.
