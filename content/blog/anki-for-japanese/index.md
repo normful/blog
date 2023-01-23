@@ -14,18 +14,24 @@ I use these two Anki apps:
 
 # Why you should or shouldn't use Anki
 
-As a beginner, I don't think it's necessary to use Anki. It might be overkill, because you probably don't need the ability to customize what words you learn. You don't know nearly any Japanese words, so you should just learn whatever basic words are introduced to you.
+If you're just starting to learn Japanese, I don't think it's necessary to use Anki at all.
+
+You probably should just learn all the basic words that are introduced to you, and use whatever app you are already using to learn words. Many apps have their own built-in review system too.
 
 # Why intermediate learners should create their own word lists (Anki decks)
 
-At the intermediate level of Japanese, the specificity of words starts to become important. There are broad general Anki decks that other people have created such as [this](https://cotoacademy.com/japanese-anki-decks-to-learn-japanese/).
+At the intermediate level of Japanese, the specific selection of words that you learn starts to become more and more important. 
 
-But I find it inefficient to study general decks because:
+Although there are broad general Anki decks that other people have created such as [this](https://cotoacademy.com/japanese-anki-decks-to-learn-japanese/), I find it inefficient to study these general decks because:
 1. They include many words I already know.
 2. They lack the specific words that I don't know and want to know or need to know.
 3. The notes created in these general decks lack the specific context where I encountered a particular word.
 
-By creating my own Anki deck, I reduce the amount of time I need to review the words, and I can create exactly what I need. I end up spending less time reviewing, reviewing exactly what I need, and ultimately having more fun.
+Instead, I recommend creating your own Anki deck, adding each new word one by one.
+
+By creating a personalized Anki deck, you can the amount of time you need to review the words, and you can create exactly what you need. 
+
+You end up spending less time reviewing, reviewing exactly what you need, and hopefully having more fun along the way.
 
 # Adding new words on my laptop
 
