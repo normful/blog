@@ -1,6 +1,6 @@
 +++
 title = "日本語の独学方法"
-date = 2023-01-22
+date = 2023-01-21
 
 [taxonomies]
 tags = ["japanese"]

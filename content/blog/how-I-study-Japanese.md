@@ -1,6 +1,6 @@
 +++
 title = "How I Study Japanese"
-date = 2023-01-22
+date = 2023-01-21
 
 [taxonomies]
 tags = ["japanese"]
