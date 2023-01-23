@@ -33,7 +33,7 @@ With Yomichan installed, adding a card for a word seen while browsing a website 
 
 The added card looks like this in the note browser.
 
-{{ img(path="./desktop-note-browser.png", alt="") }}
+{{ img(path="./desktop-note-browser.png", extended_width_pct=0.25) }}
 
 See [my Yomichan post](@/blog/yomichan/index.md) for details about how I configure Yomichan.
 
@@ -47,7 +47,7 @@ See [my post about Anki](@/blog/kanji-study/index.md#As_a_rapid_Anki_note_creato
 
 When viewing a created note in the AnkiDroid note browser, it looks like this:
 
-{{ img(path="./android-note-browser.jpg", alt="") }}
+{{ img(path="./android-note-browser.jpg") }}
 
 The only downside about these word cards is that they lack any kind of context.
 
@@ -59,7 +59,7 @@ I study cards in both **Anki for macOS** and **AnkiDroid**.
 
 When studying cards created by Kanji Study, they look like this:
 
-{{ img(path="./studying-card.jpg", alt="") }}
+{{ img(path="./studying-card.jpg") }}
 
 When studying cards created by Yomichan, they look like this:
 

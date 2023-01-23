@@ -44,7 +44,7 @@ You can make it easier to launch Kanji Study search dialog by adding the Kanji S
 
 If you have [AnkiDroid](https://play.google.com/store/apps/details?id=com.ichi2.anki) installed too, you can create a new Anki note in the Kanji Study app by tapping the ⊕ button when viewing a word or sentence, which launches this modal:
 
-{{ img(path="./add-to-anki.jpg", alt="") }}
+{{ img(path="./add-to-anki.jpg") }}
 
 Kanji Study will automatically create and use its own Anki Note type for the new Anki Notes it creates.
 
@@ -58,19 +58,19 @@ There are various kinds of study session you can launch for any set of kanji tha
 
 1. Flashcard study:
 
-{{ img(path="./quiz-rote.jpg", alt="") }}
+{{ img(path="./quiz-rote.jpg") }}
 
 2. Multiple choice quizzes:
 
-{{ img(path="./quiz-multiple-choice.jpg", alt="") }}
+{{ img(path="./quiz-multiple-choice.jpg") }}
 
 3. Writing challenges:
 
-{{ img(path="./quiz-writing.jpg", alt="") }}
+{{ img(path="./quiz-writing.jpg") }}
 
 4. Learn by reading:
 
-{{ img(path="./quiz-sentence.jpg", alt="") }}
+{{ img(path="./quiz-sentence.jpg") }}
 
 I think these study sessions are good for when you have a small batch of kanji (around 10-20) that you want to review again and again over several days or weeks.
 
@@ -80,9 +80,9 @@ I find the "Writing challenges" and "Learn by reading" study sessions to be the 
 
 There's various settings for the kinds of writing challenges you can do.
 
-{{ img(path="./writing-quiz-options-1.jpg", alt="") }}
+{{ img(path="./writing-quiz-options-1.jpg") }}
 
-{{ img(path="./writing-quiz-options-2.jpg", alt="") }}
+{{ img(path="./writing-quiz-options-2.jpg") }}
 
 I tend to start with the easiest ones (the first option in each menu), and then work my way down, as I get more familiar with a particular kanji.
 
