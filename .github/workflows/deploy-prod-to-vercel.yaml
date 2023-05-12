@@ -13,7 +13,7 @@ jobs:
       - name: Git checkout code
         uses: nschloe/action-checkout-with-lfs-cache@v1
       - name: Run zola build and zola check
-        uses: shalzz/zola-deploy-action@v0.16.1
+        uses: shalzz/zola-deploy-action@v0.17.2
         env:
           BUILD_ONLY: true
 
