@@ -1,14 +1,16 @@
 base_url = "/"
 theme = "papaya"
-taxonomies = [
-    { name = "tags", rss = true },
-    { name = "categories", rss = true },
-]
 
-# TODO(norman): Look into enabling this for both English and Japanese
-build_search_index = false
+default_language = "en"
+
+compile_sass = true
+
+build_search_index = true
+
+generate_feed = true
 
 [markdown]
+highlight_code = true
 highlight_theme = "monokai"
 
 [slugify]
@@ -16,14 +18,16 @@ paths = "safe"
 taxonomies = "safe"
 anchors = "safe"
 
+[languages]
+
 [languages.en]
 title = "Norman's Blog"
 description = "Notes and thoughts on software, Japan, and etc."
 generate_feed = true
 feed_filename = "atom.xml"
 taxonomies = [
-    { name = "tags", rss = true },
-    { name = "categories", rss = true },
+    { name = "tags", rss = true, lang = "en" },
+    { name = "categories", rss = true, lang = "en" },
 ]
 
 [languages.en.translations]
@@ -53,9 +57,10 @@ language_switch_ja = "日本語"
 title = "ノーマンのブログ"
 description = "ITや趣味など、様々な話題を扱う私の個人ブログです。"
 base_url = "/ja"
+generate_feed = true
 taxonomies = [
-    { name = "tags", rss = true },
-    { name = "categories", rss = true },
+    { name = "tags", rss = true, lang = "ja" },
+    { name = "categories", rss = true, lang = "ja" },
 ]
 
 [languages.ja.translations]
@@ -82,6 +87,7 @@ language_switch_en = "English"
 language_switch_ja = "日本語"
 
 [extra]
+color_mode = "dark"
 menu_items = [
     # TODO(norman): Uncomment these rows if you eventually add content for them. 
     # { name = "projects", url = "$LANG_BASE_URL/projects", show_recent = true, recent_items = 3, recent_trans_key = "recent_projects", more_trans_key = "more_projects" },
@@ -95,7 +101,7 @@ author = "Norman Sue"
 site_url = "https://www.normful.com"
 
 [extra.images]
-max_width = 2500
+max_width = 700
 
 [extra.ogp]
 locale = "en_US"
@@ -109,5 +115,12 @@ github = "normful"
 linkedin = "normansue"
 twitter = "normful"
 
+[extra.utterances]
+enabled = true
+repo = "normful/blog"
+post_map = "title"
+label = "utterances"
+theme = "dark-blue"
+
 [extra.cdn]
-font_awesome = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/brands.min.css"
+font_awesome = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
