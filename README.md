@@ -6,8 +6,10 @@ This is the code behind my blog at [normful.com](https://www.normful.com).
 
 # Developing
 
-1. `zola serve` locally to preview additions
-2. `git push` to deploy
+1. Start `zola serve` locally to preview additions. Watch it for errors.
+2. Write source in `.norg` files.
+3. Use `,mb` (English) or `,mjb` (Japanese) to convert Neorg to Markdown. If any internal links are broken, `zola serve` output will print errors. Keep exporting linked pages until there are no Zola errors.
+4. `git push` to deploy.
     
 On push to the `main` branch, [this GitHub Action](https://github.com/normful/blog/actions) will build the pages with [Zola](https://www.getzola.org) to deploy them to Vercel with the [Vercel CLI](https://vercel.com/docs/cli).
 
