@@ -115,12 +115,5 @@ github = "normful"
 linkedin = "normansue"
 twitter = "normful"
 
-[extra.utterances]
-enabled = true
-repo = "normful/blog"
-post_map = "title"
-label = "utterances"
-theme = "dark-blue"
-
 [extra.cdn]
 font_awesome = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
