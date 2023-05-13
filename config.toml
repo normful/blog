@@ -9,6 +9,9 @@ build_search_index = true
 
 generate_feed = true
 
+[link_checker]
+internal_level = "warn"
+
 [markdown]
 highlight_code = true
 highlight_theme = "monokai"
