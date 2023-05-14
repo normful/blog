@@ -42,6 +42,7 @@ Instead, I'm more interested in the below.
 
 ## What are expected near future business applications of machine learning models?
 
+- [ ] Read about [H20 AI Use cases](https://h2o.ai/solutions/use-case/)
 
 After watching the videos above, don't forget to write some notes to summarize
 the key ideas and specific topics/threads to look into more
