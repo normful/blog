@@ -4,11 +4,11 @@
 
 This is the code behind my blog at [normful.com](https://www.normful.com).
 
-# Developing
+# How-To: Write new posts
 
-1. Start `zola serve` locally to preview additions. Watch it for errors.
-2. Write source in `.norg` files.
-3. Use `,mb` (English) or `,mjb` (Japanese) to convert Neorg to Markdown. If any internal links are broken, `zola serve` output will print errors. Keep exporting linked pages until there are no Zola errors.
+1. Write in `.norg` files.
+2. Start `zola serve` locally to preview additions.
+3. Use `<Leader>mb` to "make blog" post. Keep exporting pages until there are no Zola warnings about broken links.
 4. `git push` to deploy.
     
 On push to the `main` branch, [this GitHub Action](https://github.com/normful/blog/actions) will build the pages with [Zola](https://www.getzola.org) to deploy them to Vercel with the [Vercel CLI](https://vercel.com/docs/cli).
@@ -19,7 +19,9 @@ On push to the `main` branch, [this GitHub Action](https://github.com/normful/bl
 git submodule update --remote
 ```
 
-# Notes to self
+Ensure [config.toml](config.toml) is updated with any new theme config values.
 
-- Don't forget to update `.gitattributes` if using a new image format.
-- You might need to run `git lfs fetch` and `git lfs checkout` if you previously cloned this repo without installing `git-lfs` first.
+## Git LFS
+
+- Update `.gitattributes` if you use a new image format.
+- If you cloned this repo without installing `git-lfs` first, run `git lfs fetch` and `git lfs checkout`.
