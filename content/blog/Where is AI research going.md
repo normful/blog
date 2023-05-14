@@ -3,7 +3,7 @@ title = "Where is AI research going"
 date = 2023-05-14
 +++
 
-What I'm not currently not in doing:
+What I'm not currently not interested in doing:
 - renting GPUs
 - training my own models
 - collecting and cleaning training data
@@ -28,3 +28,5 @@ I'm more interested in:
     - [ ] Watch videos on the [Eye on AI channel](https://www.youtube.com/@eyeonai3425/videos)
 - How can I be a better <u>user</u> of AI, as opposed to how to become a creator or maintainer of AI systems
     - [ ] Try using prompts from `:ChatGPTActAs`
+
+- [ ] After watching the videos above, don't forget to write some notes to summarize the key ideas and specific topics/threads to look into more
