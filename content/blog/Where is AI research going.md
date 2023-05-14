@@ -14,8 +14,7 @@ What I'm not currently not interested in doing:
 I'm more interested in the below.
 
 
-
-# The concepts behind the models
+## The concepts behind the models
 
 - [ ] Watch [Why Neural Networks can learn (almost) anything](https://www.youtube.com/watch?v=0QczhVg5HaI)
 - [ ] Watch [But what is a neural network? | Chapter 1, Deep learning](https://www.youtube.com/watch?v=aircAruvnKk)
@@ -25,7 +24,7 @@ I'm more interested in the below.
 - [ ] Watch [Neural Network Architectures & Deep Learning](https://www.youtube.com/watch?v=oJNHXPs0XDk)
 
 
-# Where things in the field are going
+## Where things in the field are going
 
 - [ ] Watch [CHATGPT + WOLFRAM - THE FUTURE OF AI!](https://www.youtube.com/watch?v=z5WZhCBRDpU)
 - [ ] Watch [Sparks of AGI: early experiments with GPT-4](https://www.youtube.com/watch?v=qbIk7-JPB2c)
@@ -34,12 +33,13 @@ I'm more interested in the below.
 - [ ] Watch videos on the [Eye on AI channel](https://www.youtube.com/@eyeonai3425/videos)
 
 
-# How can I be a better <u>user</u> of AI, as opposed to how to become a creator or maintainer of AI systems
+## How can I be a better <u>user</u> of AI, as opposed to how to become a creator or maintainer of AI systems
 
 - [ ] Try using prompts from `:ChatGPTActAs`
 
 
-# What are expected near future business applications of machine learning models?
+## What are expected near future business applications of machine learning models?
 
 
-- After watching the videos above, don't forget to write some notes to summarize the key ideas and specific topics/threads to look into more
+After watching the videos above, don't forget to write some notes to summarize
+the key ideas and specific topics/threads to look into more
