@@ -3,7 +3,9 @@ title = "Where is AI research going"
 date = 2023-05-14
 +++
 
-What I'm not currently not interested in doing:
+
+## What I'm not currently not interested in doing
+
 - renting GPUs
 - training my own models
 - collecting and cleaning training data
@@ -11,7 +13,7 @@ What I'm not currently not interested in doing:
 - spending hours trying to build something, and not using the built thing
 - doing the work of a data engineer
 
-I'm more interested in the below.
+Instead, I'm more interested in the below.
 
 
 ## The concepts behind the models
