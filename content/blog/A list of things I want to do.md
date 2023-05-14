@@ -21,4 +21,4 @@ I'd like to use these or learn about them, but have recently not had the
 focus or time to do so.
 - [ ] Learn how to write Rust at a journeyman level
 - [ ] Next.js app deployed on Vercel
-- [Where is AI research going](@/blog/Where%20is%20AI%20research%20going.md)
+- Investigate [Where is AI research going](@/blog/Where%20is%20AI%20research%20going.md)
