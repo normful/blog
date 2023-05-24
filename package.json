@@ -1,0 +1,10 @@
+{
+  "name": "normful/blog",
+  "version": "1.0.0",
+  "description": "Personal blog",
+  "author": "Norman Sue",
+  "license": "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.",
+  "dependencies": {
+    "vercel": "^30.0.0"
+  }
+}
