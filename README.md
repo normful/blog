@@ -4,7 +4,7 @@
 
 This is the code behind my blog at [normful.com](https://www.normful.com).
 
-# How-To: Write new posts
+## How-To: Write new posts
 
 1. Write in `.norg` files.
 2. Start `zola serve` locally to preview additions.
